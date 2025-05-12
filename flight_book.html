@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Flight - TravelEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #3a86ff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #2a75e8;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #3a86ff;
+            border: 1px solid #3a86ff;
+        }
+
+        .btn-outline:hover {
+            background-color: #f0f7ff;
+        }
+
+        .btn-outline-sm {
+            background-color: transparent;
+            color: #3a86ff;
+            border: 1px solid #3a86ff;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+
+        .btn-outline-sm:hover {
+            background-color: #f0f7ff;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            color: #3a86ff;
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #3a86ff;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Booking Page Styles */
+        .booking-page {
+            padding: 40px 0;
+        }
+
+        .booking-header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .booking-header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .booking-header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        /* Flight Selection Section */
+        .flight-selection {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        .flight-selection h2 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .flight-search {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .flight-search input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .flight-search button {
+            padding: 0 20px;
+        }
+
+        .flight-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .flight-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .flight-item:last-child {
+            border-bottom: none;
+        }
+
+        .flight-item:hover {
+            background-color: #f0f7ff;
+        }
+
+        .flight-item.selected {
+            background-color: #e6f0ff;
+            border-left: 3px solid #3a86ff;
+        }
+
+        .flight-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-right: 15px;
+        }
+
+        .flight-details {
+            flex: 1;
+        }
+
+        .flight-name {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1.1rem;
+        }
+
+        .flight-number {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .flight-route {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+
+        .flight-time {
+            font-weight: 500;
+        }
+
+        .flight-price {
+            font-weight: 600;
+            color: #3a86ff;
+            font-size: 1.2rem;
+        }
+
+        /* Passenger Information Section */
+        .passenger-info {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .passenger-info h2 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3a86ff;
+            box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2);
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            animation: fadeIn 1.4s ease;
+        }
+
+        .payment-section h2 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            flex: 1;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: #3a86ff;
+        }
+
+        .payment-method.selected {
+            border-color: #3a86ff;
+            background-color: #f0f7ff;
+        }
+
+        .payment-method i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+
+        .payment-method.selected i {
+            color: #3a86ff;
+        }
+
+        .payment-method span {
+            display: block;
+            font-weight: 500;
+        }
+
+        .card-details {
+            margin-top: 20px;
+        }
+
+        /* Booking Summary Section */
+        .booking-summary {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            animation: fadeIn 1.6s ease;
+        }
+
+        .booking-summary h2 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .summary-value {
+            font-weight: 600;
+        }
+
+        .summary-total {
+            font-size: 1.2rem;
+            color: #3a86ff;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .booking-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        /* Confirmation Section */
+        .confirmation {
+            display: none;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .confirmation i {
+            font-size: 5rem;
+            color: #48bb78;
+            margin-bottom: 20px;
+        }
+
+        .confirmation h2 {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .confirmation p {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .booking-details {
+            background-color: #f8fafc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .booking-details h3 {
+            font-size: 1.3rem;
+            color: #2d3748;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .detail-item {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .detail-label {
+            width: 150px;
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .detail-value {
+            flex: 1;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #2d3748;
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #3a86ff;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #3a86ff;
+        }
+
+        .contact-info li {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #3a86ff;
+            transform: translateY(-3px);
+        }
+
+        .footer-newsletter {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .footer-newsletter input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-family: inherit;
+        }
+
+        .footer-newsletter button {
+            background-color: #3a86ff;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3a86ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .booking-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .booking-actions .btn {
+                width: 100%;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="https://via.placeholder.com/150x50" alt="TravelEase Logo">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="sign_in.html" class="btn btn-outline">Sign In</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Booking Page Layout -->
+    <div class="booking-page">
+        <div class="container">
+            <div class="booking-header">
+                <h1>Book Your Flight</h1>
+                <p>Complete your booking in a few simple steps</p>
+            </div>
+            
+            <div id="bookingForm">
+                <!-- Flight Selection Section -->
+                <section class="flight-selection">
+                    <h2>Select Your Flight</h2>
+                    <div class="flight-search">
+                        <input type="text" id="flightSearch" placeholder="Search by airline or flight number...">
+                        <button class="btn btn-primary" id="searchBtn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                    
+                    <div class="flight-list" id="flightList">
+                        <!-- Flight items will be dynamically generated here -->
+                    </div>
+                </section>
+                
+                <!-- Passenger Information Section -->
+                <section class="passenger-info">
+                    <h2>Passenger Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nationality">Nationality</label>
+                            <select id="nationality" required>
+                                <option value="">Select Nationality</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="ET">Ethiopia</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="FR">France</option>
+                                <option value="DE">Germany</option>
+                                <option value="IT">Italy</option>
+                                <option value="ES">Spain</option>
+                                <option value="JP">Japan</option>
+                                <option value="CN">China</option>
+                                <option value="IN">India</option>
+                                <option value="BR">Brazil</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="passportNumber">Passport Number</label>
+                            <input type="text" id="passportNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="passportExpiry">Passport Expiry Date</label>
+                            <input type="date" id="passportExpiry" required>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Payment Section -->
+                <section class="payment-section">
+                    <h2>Payment Details</h2>
+                    <div class="payment-methods">
+                        <div class="payment-method" data-method="credit-card">
+                            <i class="far fa-credit-card"></i>
+                            <span>Credit Card</span>
+                        </div>
+                        <div class="payment-method" data-method="paypal">
+                            <i class="fab fa-paypal"></i>
+                            <span>PayPal</span>
+                        </div>
+                        <div class="payment-method" data-method="apple-pay">
+                            <i class="fab fa-apple-pay"></i>
+                            <span>Apple Pay</span>
+                        </div>
+                        <div class="payment-method" data-method="google-pay">
+                            <i class="fab fa-google-pay"></i>
+                            <span>Google Pay</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-details" id="cardDetails">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardName">Name on Card</label>
+                                <input type="text" id="cardName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number</label>
+                                <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="XXX" required>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Booking Summary Section -->
+                <section class="booking-summary">
+                    <h2>Booking Summary</h2>
+                    <div class="summary-item">
+                        <span class="summary-label">Selected Flight</span>
+                        <span class="summary-value" id="summaryFlight">Not selected</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Passenger</span>
+                        <span class="summary-value" id="summaryPassenger">Not provided</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Flight Price</span>
+                        <span class="summary-value" id="summaryPrice">$0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Taxes & Fees</span>
+                        <span class="summary-value" id="summaryTaxes">$0.00</span>
+                    </div>
+                    <div class="summary-item summary-total">
+                        <span class="summary-label">Total</span>
+                        <span class="summary-value" id="summaryTotal">$0.00</span>
+                    </div>
+                    
+                    <div class="booking-actions">
+                        <a href="flights.html" class="btn btn-outline">Back to Flights</a>
+                        <button class="btn btn-primary pulse" id="confirmBookingBtn">Confirm Booking</button>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Booking Confirmation Section (initially hidden) -->
+            <section class="confirmation" id="confirmationSection">
+                <i class="fas fa-check-circle"></i>
+                <h2>Booking Confirmed!</h2>
+                <p>Your flight has been successfully booked. A confirmation email has been sent to your email address.</p>
+                
+                <div class="booking-details">
+                    <h3>Booking Details</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Booking Reference:</span>
+                        <span class="detail-value" id="bookingReference">TRV-123456</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Flight:</span>
+                        <span class="detail-value" id="confirmationFlight">Delta Airlines DL 1234</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Passenger:</span>
+                        <span class="detail-value" id="confirmationPassenger">John Doe</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Date:</span>
+                        <span class="detail-value" id="confirmationDate">May 12, 2025</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Total Paid:</span>
+                        <span class="detail-value" id="confirmationTotal">$549.00</span>
+                    </div>
+                </div>
+                
+                <div class="booking-actions">
+                    <a href="index.html" class="btn btn-outline">Return to Home</a>
+                    <a href="#" class="btn btn-primary" id="downloadTicketBtn">Download E-Ticket</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Travel Street, City, Country</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@travelease.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form class="footer-newsletter">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TravelEase. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Flight data - this would typically come from a backend API
+            const flights = [
+                {
+                    id: 1,
+                    airline: "Delta Airlines",
+                    flightNumber: "DL 1234",
+                    departure: "New York (JFK)",
+                    departureTime: "08:30",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "16:00",
+                    duration: "7h 30m",
+                    stops: "Direct",
+                    price: 549,
+                    logo: "delta.jpg"
+                },
+                {
+                    id: 2,
+                    airline: "Air France",
+                    flightNumber: "AF 6789",
+                    departure: "New York (JFK)",
+                    departureTime: "10:15",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "18:00",
+                    duration: "7h 45m",
+                    stops: "Direct",
+                    price: 499,
+                    logo: "air_france.jpg"
+                },
+                {
+                    id: 3,
+                    airline: "United Airlines",
+                    flightNumber: "UA 5678",
+                    departure: "New York (JFK)",
+                    departureTime: "14:45",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "08:00",
+                    duration: "9h 15m",
+                    stops: "1 Stop (LHR)",
+                    price: 429,
+                    logo: "united.jpg"
+                },
+                {
+                    id: 4,
+                    airline: "British Airways",
+                    flightNumber: "BA 2345",
+                    departure: "New York (JFK)",
+                    departureTime: "19:30",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "12:45",
+                    duration: "11h 15m",
+                    stops: "1 Stop (LHR)",
+                    price: 389,
+                    logo: "british.jpg"
+                },
+                {
+                    id: 5,
+                    airline: "American Airlines",
+                    flightNumber: "AA 7890",
+                    departure: "New York (JFK)",
+                    departureTime: "21:15",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "14:30",
+                    duration: "9h 15m",
+                    stops: "Direct",
+                    price: 519,
+                    logo: "america.jpg"
+                },
+                {
+                    id: 6,
+                    airline: "Delta Airlines",
+                    flightNumber: "DL 5432",
+                    departure: "New York (JFK)",
+                    departureTime: "06:45",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "15:00",
+                    duration: "8h 15m",
+                    stops: "Direct",
+                    price: 579,
+                    logo: "delta.jpg"
+                },
+                {
+                    id: 7,
+                    airline: "Air France",
+                    flightNumber: "AF 1122",
+                    departure: "New York (JFK)",
+                    departureTime: "12:30",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "20:45",
+                    duration: "8h 15m",
+                    stops: "Direct",
+                    price: 539,
+                    logo: "air_france.jpg"
+                },
+                {
+                    id: 8,
+                    airline: "United Airlines",
+                    flightNumber: "UA 9876",
+                    departure: "New York (JFK)",
+                    departureTime: "16:20",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "09:45",
+                    duration: "9h 25m",
+                    stops: "1 Stop (AMS)",
+                    price: 449,
+                    logo: "united.jpg"
+                },
+                {
+                    id: 9,
+                    airline: "British Airways",
+                    flightNumber: "BA 6543",
+                    departure: "New York (JFK)",
+                    departureTime: "22:10",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "15:30",
+                    duration: "9h 20m",
+                    stops: "1 Stop (LHR)",
+                    price: 409,
+                    logo: "british.jpg"
+                },
+                {
+                    id: 10,
+                    airline: "American Airlines",
+                    flightNumber: "AA 3456",
+                    departure: "New York (JFK)",
+                    departureTime: "09:45",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "18:00",
+                    duration: "8h 15m",
+                    stops: "Direct",
+                    price: 529,
+                    logo: "america.jpg"
+                },
+                {
+                    id: 11,
+                    airline: "Delta Airlines",
+                    flightNumber: "DL 8765",
+                    departure: "New York (JFK)",
+                    departureTime: "11:30",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "19:45",
+                    duration: "8h 15m",
+                    stops: "Direct",
+                    price: 559,
+                    logo: "delta.jpg"
+                },
+                {
+                    id: 12,
+                    airline: "Air France",
+                    flightNumber: "AF 3344",
+                    departure: "New York (JFK)",
+                    departureTime: "15:15",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "23:30",
+                    duration: "8h 15m",
+                    stops: "Direct",
+                    price: 509,
+                    logo: "air_france.jpg"
+                },
+                {
+                    id: 13,
+                    airline: "United Airlines",
+                    flightNumber: "UA 2233",
+                    departure: "New York (JFK)",
+                    departureTime: "18:30",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "12:00",
+                    duration: "9h 30m",
+                    stops: "1 Stop (FRA)",
+                    price: 439,
+                    logo: "united.jpg"
+                },
+                {
+                    id: 14,
+                    airline: "British Airways",
+                    flightNumber: "BA 8877",
+                    departure: "New York (JFK)",
+                    departureTime: "20:45",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "14:15",
+                    duration: "9h 30m",
+                    stops: "1 Stop (LHR)",
+                    price: 419,
+                    logo: "british.jpg"
+                },
+                {
+                    id: 15,
+                    airline: "American Airlines",
+                    flightNumber: "AA 5566",
+                    departure: "New York (JFK)",
+                    departureTime: "07:30",
+                    arrival: "Paris (CDG)",
+                    arrivalTime: "15:45",
+                    duration: "8h 15m",
+                    stops: "Direct",
+                    price: 539,
+                    logo: "america.jpg"
+                }
+            ];
+            
+            // DOM elements
+            const flightListElement = document.getElementById('flightList');
+            const flightSearchInput = document.getElementById('flightSearch');
+            const searchBtn = document.getElementById('searchBtn');
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            const confirmBookingBtn = document.getElementById('confirmBookingBtn');
+            const bookingForm = document.getElementById('bookingForm');
+            const confirmationSection = document.getElementById('confirmationSection');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            
+            // Summary elements
+            const summaryFlight = document.getElementById('summaryFlight');
+            const summaryPassenger = document.getElementById('summaryPassenger');
+            const summaryPrice = document.getElementById('summaryPrice');
+            const summaryTaxes = document.getElementById('summaryTaxes');
+            const summaryTotal = document.getElementById('summaryTotal');
+            
+            // Confirmation elements
+            const bookingReference = document.getElementById('bookingReference');
+            const confirmationFlight = document.getElementById('confirmationFlight');
+            const confirmationPassenger = document.getElementById('confirmationPassenger');
+            const confirmationDate = document.getElementById('confirmationDate');
+            const confirmationTotal = document.getElementById('confirmationTotal');
+            
+            // State variables
+            let selectedFlight = null;
+            let selectedPaymentMethod = null;
+            
+            // Check if a flight ID was passed in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const flightId = urlParams.get('flight');
+            
+            // Initialize the page
+            init();
+            
+            function init() {
+                // Populate flight list
+                populateFlightList(flights);
+                
+                // Set up event listeners
+                searchBtn.addEventListener('click', searchFlights);
+                flightSearchInput.addEventListener('keyup', function(event) {
+                    if (event.key === 'Enter') {
+                        searchFlights();
+                    }
+                });
+                
+                // Set up payment method selection
+                paymentMethods.forEach(method => {
+                    method.addEventListener('click', function() {
+                        selectPaymentMethod(this);
+                    });
+                });
+                
+                // Set up form submission
+                confirmBookingBtn.addEventListener('click', confirmBooking);
+                
+                // If a flight ID was passed, select that flight
+                if (flightId) {
+                    const flight = flights.find(f => f.id === parseInt(flightId));
+                    if (flight) {
+                        setTimeout(() => {
+                            selectFlight(flight);
+                            // Scroll to passenger info section
+                            document.querySelector('.passenger-info').scrollIntoView({ behavior: 'smooth' });
+                        }, 500);
+                    }
+                }
+                
+                // Add input event listeners for real-time summary updates
+                document.getElementById('firstName').addEventListener('input', updatePassengerSummary);
+                document.getElementById('lastName').addEventListener('input', updatePassengerSummary);
+                
+                // Select first payment method by default
+                selectPaymentMethod(paymentMethods[0]);
+                
+                // Add animation to flight items when they appear
+                animateFlightItems();
+            }
+            
+            // Populate the flight list with all flights
+            function populateFlightList(flightsToShow) {
+                flightListElement.innerHTML = '';
+                
+                if (flightsToShow.length === 0) {
+                    flightListElement.innerHTML = '<div class="no-results">No flights found matching your search. Please try different search terms.</div>';
+                    return;
+                }
+                
+                flightsToShow.forEach((flight, index) => {
+                    const flightItem = document.createElement('div');
+                    flightItem.className = 'flight-item';
+                    flightItem.dataset.id = flight.id;
+                    flightItem.innerHTML = `
+                        <img src="${flight.logo}" alt="${flight.airline}" class="flight-logo">
+                        <div class="flight-details">
+                            <div class="flight-name">${flight.airline}</div>
+                            <div class="flight-number">${flight.flightNumber}</div>
+                            <div class="flight-route">
+                                <span class="flight-time">${flight.departureTime}</span>
+                                <i class="fas fa-arrow-right"></i>
+                                <span class="flight-time">${flight.arrivalTime}</span>
+                                <span class="flight-duration">(${flight.duration})</span>
+                            </div>
+                        </div>
+                        <div class="flight-price">$${flight.price}</div>
+                    `;
+                    
+                    // Add click event to select this flight
+                    flightItem.addEventListener('click', function() {
+                        selectFlight(flight);
+                    });
+                    
+                    // Add animation delay based on index
+                    flightItem.style.animationDelay = `${index * 0.1}s`;
+                    
+                    flightListElement.appendChild(flightItem);
+                });
+                
+                // If a flight ID was passed, highlight that flight
+                if (flightId) {
+                    const flightItem = flightListElement.querySelector(`[data-id="${flightId}"]`);
+                    if (flightItem) {
+                        flightItem.classList.add('selected');
+                    }
+                }
+            }
+            
+            // Search flights based on input
+            function searchFlights() {
+                const searchTerm = flightSearchInput.value.toLowerCase();
+                
+                if (!searchTerm) {
+                    populateFlightList(flights);
+                    return;
+                }
+                
+                const filteredFlights = flights.filter(flight => 
+                    flight.airline.toLowerCase().includes(searchTerm) || 
+                    flight.flightNumber.toLowerCase().includes(searchTerm)
+                );
+                
+                populateFlightList(filteredFlights);
+                animateFlightItems();
+            }
+            
+            // Select a flight
+            function selectFlight(flight) {
+                selectedFlight = flight;
+                
+                // Update UI to show selected flight
+                const flightItems = document.querySelectorAll('.flight-item');
+                flightItems.forEach(item => {
+                    item.classList.remove('selected');
+                    if (parseInt(item.dataset.id) === flight.id) {
+                        item.classList.add('selected');
+                    }
+                });
+                
+                // Update summary
+                summaryFlight.textContent = `${flight.airline} ${flight.flightNumber}`;
+                summaryPrice.textContent = `$${flight.price.toFixed(2)}`;
+                
+                // Calculate taxes (for demo purposes, 10% of flight price)
+                const taxes = flight.price * 0.1;
+                summaryTaxes.textContent = `$${taxes.toFixed(2)}`;
+                
+                // Calculate total
+                const total = flight.price + taxes;
+                summaryTotal.textContent = `$${total.toFixed(2)}`;
+                
+                // Add animation to summary
+                document.querySelector('.summary-total').classList.add('pulse');
+                setTimeout(() => {
+                    document.querySelector('.summary-total').classList.remove('pulse');
+                }, 1500);
+            }
+            
+            // Select payment method
+            function selectPaymentMethod(methodElement) {
+                selectedPaymentMethod = methodElement.dataset.method;
+                
+                // Update UI
+                paymentMethods.forEach(method => {
+                    method.classList.remove('selected');
+                });
+                methodElement.classList.add('selected');
+                
+                // Show/hide card details based on selected method
+                const cardDetails = document.getElementById('cardDetails');
+                if (selectedPaymentMethod === 'credit-card') {
+                    cardDetails.style.display = 'block';
+                } else {
+                    cardDetails.style.display = 'none';
+                }
+            }
+            
+            // Update passenger summary when name is entered
+            function updatePassengerSummary() {
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                
+                if (firstName && lastName) {
+                    summaryPassenger.textContent = `${firstName} ${lastName}`;
+                }
+            }
+            
+            // Confirm booking
+            function confirmBooking() {
+                // Validate form
+                if (!validateForm()) {
+                    return;
+                }
+                
+                // Show loading overlay
+                loadingOverlay.style.display = 'flex';
+                
+                // Simulate API call with timeout
+                setTimeout(() => {
+                    // Hide loading overlay
+                    loadingOverlay.style.display = 'none';
+                    
+                    // Update confirmation details
+                    const firstName = document.getElementById('firstName').value;
+                    const lastName = document.getElementById('lastName').value;
+                    
+                    // Generate random booking reference
+                    const bookingRef = 'TRV-' + Math.floor(100000 + Math.random() * 900000);
+                    bookingReference.textContent = bookingRef;
+                    
+                    confirmationFlight.textContent = `${selectedFlight.airline} ${selectedFlight.flightNumber}`;
+                    confirmationPassenger.textContent = `${firstName} ${lastName}`;
+                    
+                    // Current date for booking
+                    const today = new Date();
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    confirmationDate.textContent = today.toLocaleDateString('en-US', options);
+                    
+                    // Total from summary
+                    confirmationTotal.textContent = summaryTotal.textContent;
+                    
+                    // Hide booking form and show confirmation
+                    bookingForm.style.display = 'none';
+                    confirmationSection.style.display = 'block';
+                    
+                    // Scroll to top of confirmation
+                    confirmationSection.scrollIntoView({ behavior: 'smooth' });
+                }, 2000);
+            }
+            
+            // Validate form before submission
+            function validateForm() {
+                // Check if flight is selected
+                if (!selectedFlight) {
+                    alert('Please select a flight.');
+                    document.querySelector('.flight-selection').scrollIntoView({ behavior: 'smooth' });
+                    return false;
+                }
+                
+                // Check required passenger fields
+                const requiredFields = [
+                    'firstName', 'lastName', 'email', 'phone', 
+                    'dob', 'nationality', 'passportNumber', 'passportExpiry'
+                ];
+                
+                for (const field of requiredFields) {
+                    const input = document.getElementById(field);
+                    if (!input.value) {
+                        alert(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`);
+                        input.focus();
+                        return false;
+                    }
+                }
+                
+                // Check payment details if credit card is selected
+                if (selectedPaymentMethod === 'credit-card') {
+                    const paymentFields = ['cardName', 'cardNumber', 'expiryDate', 'cvv'];
+                    
+                    for (const field of paymentFields) {
+                        const input = document.getElementById(field);
+                        if (!input.value) {
+                            alert(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`);
+                            input.focus();
+                            return false;
+                        }
+                    }
+                }
+                
+                return true;
+            }
+            
+            // Add animation to flight items
+            function animateFlightItems() {
+                const flightItems = document.querySelectorAll('.flight-item');
+                flightItems.forEach((item, index) => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        item.style.transition = 'all 0.5s ease';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }
+            
+            // Download ticket (mock functionality)
+            document.getElementById('downloadTicketBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('E-Ticket download functionality would be implemented here.');
+            });
+        });
+    </script>
+</body>
+</html>

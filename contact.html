@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TravelEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #4e6bff;
+            --primary-dark: #3a56d4;
+            --secondary-color: #ff7e5f;
+            --dark-color: #2d3748;
+            --light-color: #f8f9fa;
+            --gray-color: #a0aec0;
+            --success-color: #48bb78;
+            --danger-color: #f56565;
+            --warning-color: #ed8936;
+            --info-color: #4299e1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background-color: #f5f7fa;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e86e50;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links .active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .auth-buttons .btn {
+            margin-left: 10px;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.3s;
+            animation-fill-mode: both;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .section-title p {
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-form-container {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .info-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .info-card h3 i {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .info-list i {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        .info-list .info-content {
+            flex: 1;
+        }
+
+        .info-list h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .info-list p {
+            color: var(--gray-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f0f4f8;
+            color: var(--primary-color);
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .contact-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(78, 107, 255, 0.1);
+            outline: none;
+        }
+
+        .form-control.error {
+            border-color: var(--danger-color);
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            text-align: right;
+        }
+
+        .form-submit .btn {
+            padding: 12px 30px;
+        }
+
+        /* Map Section */
+        .map-section {
+            margin-top: 60px;
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background-color: #f0f4f8;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .accordion {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            background-color: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .accordion:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion-header {
+            padding: 20px;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .accordion-header h3 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .accordion-header i {
+            color: var(--primary-color);
+            transition: transform 0.3s;
+        }
+
+        .accordion.active .accordion-header {
+            background-color: #f8f9fa;
+        }
+
+        .accordion.active .accordion-header i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+
+        .accordion.active .accordion-body {
+            padding: 0 20px 20px;
+            max-height: 300px;
+        }
+
+        /* Live Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-popup {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: none;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .chat-popup.show {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .chat-header i {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .chat-header i:hover {
+            transform: rotate(90deg);
+        }
+
+        .chat-body {
+            height: 300px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+
+        .chat-message.incoming {
+            justify-content: flex-start;
+        }
+
+        .chat-message.outgoing {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .incoming .message-content {
+            background-color: #f0f4f8;
+            color: var(--dark-color);
+            border-top-left-radius: 0;
+        }
+
+        .outgoing .message-content {
+            background-color: var(--primary-color);
+            color: white;
+            border-top-right-radius: 0;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            margin-top: 5px;
+            color: var(--gray-color);
+            text-align: right;
+        }
+
+        .chat-footer {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .chat-send {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .chat-send:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 60px 0;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-content p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+        }
+
+        .newsletter-button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 5px 5px 0;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-button:hover {
+            background-color: #e86e50;
+        }
+
+        /* Success Message */
+        .success-message {
+            background-color: var(--success-color);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .slide-up {
+            animation: slideUp 1s ease-out;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 1s ease-out;
+        }
+
+        .bounce {
+            animation: bounce 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from { 
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from { 
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 20px;
+        }
+
+        .loading div {
+            position: absolute;
+            top: 0;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+
+        .loading div:nth-child(1) {
+            left: 8px;
+            animation: loading1 0.6s infinite;
+        }
+
+        .loading div:nth-child(2) {
+            left: 8px;
+            animation: loading2 0.6s infinite;
+        }
+
+        .loading div:nth-child(3) {
+            left: 32px;
+            animation: loading2 0.6s infinite;
+        }
+
+        .loading div:nth-child(4) {
+            left: 56px;
+            animation: loading3 0.6s infinite;
+        }
+
+        @keyframes loading1 {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes loading3 {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(0);
+            }
+        }
+
+        @keyframes loading2 {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(24px, 0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .chat-widget {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .chat-popup {
+                width: 300px;
+                right: 0;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-button {
+                border-radius: 5px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .chat-popup {
+                width: 280px;
+                right: -30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="https://via.placeholder.com/150x50" alt="TravelEase Logo">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html" class="active">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="sign_in.html" class="btn btn-outline">Sign In</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Contact Us</h1>
+                <p>We're here to help with any questions you may have about our services. Reach out to us and we'll respond as soon as we can.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get in Touch</h2>
+                <p>Have questions about booking, destinations, or need assistance with your travel plans? Our team is ready to help you.</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info slide-in-left">
+                    <div class="info-card">
+                        <h3><i class="fas fa-map-marker-alt"></i> Our Locations</h3>
+                        <ul class="info-list">
+                            <li>
+                                <i class="fas fa-building"></i>
+                                <div class="info-content">
+                                    <h4>Headquarters</h4>
+                                    <p>123 Travel Street, City Center<br>New York, NY 10001</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-building"></i>
+                                <div class="info-content">
+                                    <h4>European Office</h4>
+                                    <p>45 Vacation Avenue<br>London, UK EC1A 1BB</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-building"></i>
+                                <div class="info-content">
+                                    <h4>Asia Pacific Office</h4>
+                                    <p>78 Holiday Road<br>Singapore, 189652</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <h3><i class="fas fa-phone-alt"></i> Contact Info</h3>
+                        <ul class="info-list">
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <div class="info-content">
+                                    <h4>Email Us</h4>
+                                    <p>info@travelease.com<br>support@travelease.com</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <div class="info-content">
+                                    <h4>Call Us</h4>
+                                    <p>+1 (555) 123-4567<br>+1 (555) 987-6543</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                <div class="info-content">
+                                    <h4>Business Hours</h4>
+                                    <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card">
+                        <h3><i class="fas fa-share-alt"></i> Follow Us</h3>
+                        <p>Stay connected with us on social media for travel tips, deals, and inspiration.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-pinterest"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-container slide-in-right">
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" class="form-control" required>
+                                    <div class="error-message" id="firstNameError">Please enter your first name</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" class="form-control" required>
+                                    <div class="error-message" id="lastNameError">Please enter your last name</div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" class="form-control" required>
+                                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-control">
+                                    <div class="error-message" id="phoneError">Please enter a valid phone number</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" class="form-control" required>
+                                <div class="error-message" id="subjectError">Please enter a subject</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" class="form-control" required></textarea>
+                                <div class="error-message" id="messageError">Please enter your message</div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="newsletter" checked> Subscribe to our newsletter
+                                </label>
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
+                            </div>
+                            <div class="success-message" id="formSuccess">
+                                Your message has been sent successfully! We'll get back to you soon.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <div class="map-container fade-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.3059353029!2d-74.25986548248684!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1619826381244!5m2!1sen!2s" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our services, booking process, and travel policies.</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <h3>How do I book a hotel through TravelEase?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <p>Booking a hotel through TravelEase is simple. Use our search tool to find hotels in your desired destination, select your check-in and check-out dates, and choose the number of guests. Browse through the available options, compare prices and amenities, and click "Book Now" when you've found the perfect match. Follow the prompts to complete your reservation with your payment details.</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <h3>What is your cancellation policy?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <p>Our cancellation policy varies depending on the hotel and rate type you've selected. Most hotels offer free cancellation up to 24-48 hours before check-in, but some special rates may be non-refundable. The specific cancellation policy for your booking will be clearly displayed before you complete your reservation and in your confirmation email. If you need to cancel, you can do so through your account or by contacting our customer service team.</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <h3>Do you offer package deals for flights and hotels?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <p>Yes, we offer package deals that combine flights and hotels for significant savings. By booking both together, you can often save up to 20% compared to booking them separately. Our package deals also include options to add car rentals, airport transfers, and activities. To find package deals, use the "Packages" tab on our homepage and enter your travel details.</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <h3>How can I find the best deals on TravelEase?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <p>To find the best deals on TravelEase, we recommend:
+                            <br>- Signing up for our newsletter to receive exclusive offers
+                            <br>- Being flexible with your travel dates and using our "flexible dates" search option
+                            <br>- Booking in advance, especially for peak travel seasons
+                            <br>- Checking our "Deals" page regularly for limited-time promotions
+                            <br>- Creating an account to access member-only prices and earn rewards
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <h3>Do you have a loyalty or rewards program?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <p>Yes, we have the TravelEase Rewards program. When you create an account and book through our platform, you earn points for every dollar spent. These points can be redeemed for discounts on future bookings, room upgrades, or travel perks. Our program has three tiers: Silver, Gold, and Platinum, each offering increasing benefits such as priority customer service, early access to deals, and exclusive partner offers.</p>
+                    </div>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-header">
+                        <h3>How can I contact customer support?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <p>You can contact our customer support team through multiple channels:
+                            <br>- Phone: +1 (555) 123-4567 (available 24/7)
+                            <br>- Email: support@travelease.com
+                            <br>- Live Chat: Available on our website and mobile app
+                            <br>- Contact Form: Fill out the form on this page
+                            <br>- Social Media: Message us on Facebook, Twitter, or Instagram
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Subscribe to Our Newsletter</h2>
+                <p>Stay updated with our latest travel deals, destination guides, and exclusive offers.</p>
+                <form id="newsletterForm" class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" class="newsletter-input" id="newsletterEmail" required>
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+                <div class="success-message" id="newsletterSuccess">
+                    Thank you for subscribing! Check your email for a confirmation.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Travel Blog</a></li>
+                        <li><a href="#">Travel Guides</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Travel Insurance</a></li>
+                        <li><a href="#">Site Map</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Policies</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Travel Street, New York</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@travelease.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 TravelEase. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Live Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-button" id="chatButton">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-popup" id="chatPopup">
+            <div class="chat-header">
+                <h3>Live Chat Support</h3>
+                <i class="fas fa-times" id="chatClose"></i>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-message incoming">
+                    <div class="message-content">
+                        Hello! How can I help you today?
+                        <div class="message-time">10:30 AM</div>
+                    </div>
+                </div>
+                <div class="chat-message incoming">
+                    <div class="message-content">
+                        Feel free to ask any questions about our services or bookings.
+                        <div class="message-time">10:31 AM</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Type your message..." class="chat-input" id="chatInput">
+                <button class="chat-send" id="chatSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formSuccess = document.getElementById('formSuccess');
+        const newsletterForm = document.getElementById('newsletterForm');
+        const newsletterSuccess = document.getElementById('newsletterSuccess');
+        const accordions = document.querySelectorAll('.accordion');
+        const chatButton = document.getElementById('chatButton');
+        const chatPopup = document.getElementById('chatPopup');
+        const chatClose = document.getElementById('chatClose');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatBody = document.getElementById('chatBody');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Setup animations
+            setupAnimations();
+        });
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mobile Menu Toggle
+            document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+                const navLinks = document.querySelector('.nav-links');
+                const authButtons = document.querySelector('.auth-buttons');
+                
+                navLinks.style.display = navLinks.style.display === 'block' ? 'none' : 'block';
+                authButtons.style.display = authButtons.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Contact Form Submission
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    if (validateForm()) {
+                        // Show loading state
+                        submitBtn.innerHTML = '<div class="loading"><div></div><div></div><div></div><div></div></div>';
+                        submitBtn.disabled = true;
+                        
+                        // Simulate form submission
+                        setTimeout(() => {
+                            submitBtn.innerHTML = 'Send Message';
+                            submitBtn.disabled = false;
+                            
+                            // Show success message
+                            formSuccess.style.display = 'block';
+                            
+                            // Reset form
+                            contactForm.reset();
+                            
+                            // Hide success message after 5 seconds
+                            setTimeout(() => {
+                                formSuccess.style.display = 'none';
+                            }, 5000);
+                        }, 2000);
+                    }
+                });
+            }
+
+            // Newsletter Form Submission
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = document.getElementById('newsletterEmail');
+                    if (validateEmail(emailInput.value)) {
+                        // Simulate form submission
+                        setTimeout(() => {
+                            // Show success message
+                            newsletterSuccess.style.display = 'block';
+                            
+                            // Reset form
+                            newsletterForm.reset();
+                            
+                            // Hide success message after 5 seconds
+                            setTimeout(() => {
+                                newsletterSuccess.style.display = 'none';
+                            }, 5000);
+                        }, 1000);
+                    }
+                });
+            }
+
+            // FAQ Accordions
+            accordions.forEach(accordion => {
+                const header = accordion.querySelector('.accordion-header');
+                header.addEventListener('click', function() {
+                    accordion.classList.toggle('active');
+                });
+            });
+
+            // Chat Widget
+            if (chatButton && chatPopup && chatClose) {
+                chatButton.addEventListener('click', function() {
+                    chatPopup.classList.toggle('show');
+                });
+                
+                chatClose.addEventListener('click', function() {
+                    chatPopup.classList.remove('show');
+                });
+            }
+
+            // Chat Send Message
+            if (chatInput && chatSend && chatBody) {
+                chatSend.addEventListener('click', sendChatMessage);
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendChatMessage();
+                    }
+                });
+            }
+        }
+
+        // Validate Contact Form
+        function validateForm() {
+            let isValid = true;
+            
+            // First Name
+            const firstName = document.getElementById('firstName');
+            const firstNameError = document.getElementById('firstNameError');
+            if (!firstName.value.trim()) {
+                firstName.classList.add('error');
+                firstNameError.style.display = 'block';
+                isValid = false;
+            } else {
+                firstName.classList.remove('error');
+                firstNameError.style.display = 'none';
+            }
+            
+            // Last Name
+            const lastName = document.getElementById('lastName');
+            const lastNameError = document.getElementById('lastNameError');
+            if (!lastName.value.trim()) {
+                lastName.classList.add('error');
+                lastNameError.style.display = 'block';
+                isValid = false;
+            } else {
+                lastName.classList.remove('error');
+                lastNameError.style.display = 'none';
+            }
+            
+            // Email
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            if (!validateEmail(email.value)) {
+                email.classList.add('error');
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                email.classList.remove('error');
+                emailError.style.display = 'none';
+            }
+            
+            // Phone (optional)
+            const phone = document.getElementById('phone');
+            const phoneError = document.getElementById('phoneError');
+            if (phone.value && !validatePhone(phone.value)) {
+                phone.classList.add('error');
+                phoneError.style.display = 'block';
+                isValid = false;
+            } else {
+                phone.classList.remove('error');
+                phoneError.style.display = 'none';
+            }
+            
+            // Subject
+            const subject = document.getElementById('subject');
+            const subjectError = document.getElementById('subjectError');
+            if (!subject.value.trim()) {
+                subject.classList.add('error');
+                subjectError.style.display = 'block';
+                isValid = false;
+            } else {
+                subject.classList.remove('error');
+                subjectError.style.display = 'none';
+            }
+            
+            // Message
+            const message = document.getElementById('message');
+            const messageError = document.getElementById('messageError');
+            if (!message.value.trim()) {
+                message.classList.add('error');
+                messageError.style.display = 'block';
+                isValid = false;
+            } else {
+                message.classList.remove('error');
+                messageError.style.display = 'none';
+            }
+            
+            return isValid;
+        }
+
+        // Validate Email
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        // Validate Phone
+        function validatePhone(phone) {
+            const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+            return re.test(String(phone));
+        }
+
+        // Send Chat Message
+        function sendChatMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                // Get current time
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const formattedHours = hours % 12 || 12;
+                const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+                const timeString = `${formattedHours}:${formattedMinutes} ${ampm}`;
+                
+                // Create outgoing message
+                const outgoingMessage = `
+                    <div class="chat-message outgoing">
+                        <div class="message-content">
+                            ${message}
+                            <div class="message-time">${timeString}</div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add message to chat
+                chatBody.innerHTML += outgoingMessage;
+                
+                // Clear input
+                chatInput.value = '';
+                
+                // Scroll to bottom
+                chatBody.scrollTop = chatBody.scrollHeight;
+                
+                // Simulate response after 1 second
+                setTimeout(() => {
+                    // Create incoming message
+                    const incomingMessage = `
+                        <div class="chat-message incoming">
+                            <div class="message-content">
+                                Thanks for your message! Our team will get back to you shortly.
+                                <div class="message-time">${timeString}</div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add response to chat
+                    chatBody.innerHTML += incomingMessage;
+                    
+                    // Scroll to bottom
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1000);
+            }
+        }
+
+        // Animation on Scroll
+        function setupAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('slide-in-left')) {
+                            entry.target.style.animation = 'slideInLeft 1s ease-out forwards';
+                        } else if (entry.target.classList.contains('slide-in-right')) {
+                            entry.target.style.animation = 'slideInRight 1s ease-out forwards';
+                        } else if (entry.target.classList.contains('fade-in')) {
+                            entry.target.style.animation = 'fadeIn 1s ease-out forwards';
+                        } else if (entry.target.classList.contains('slide-up')) {
+                            entry.target.style.animation = 'slideUp 1s ease-out forwards';
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements with animation classes
+            document.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in, .slide-up').forEach(el => {
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>

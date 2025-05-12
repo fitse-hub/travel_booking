@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flights - TravelEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #3a86ff;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #2a75e8;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #3a86ff;
+    border: 1px solid #3a86ff;
+}
+
+.btn-outline:hover {
+    background-color: #f0f7ff;
+}
+
+.btn-outline-sm {
+    background-color: transparent;
+    color: #3a86ff;
+    border: 1px solid #3a86ff;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+.btn-outline-sm:hover {
+    background-color: #f0f7ff;
+}
+
+/* Header Styles */
+.header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+    color: #3a86ff;
+}
+
+.nav-links a.active::after,
+.nav-links a:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #3a86ff;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Booking Page Styles */
+.booking-page {
+    padding: 40px 0;
+}
+
+.booking-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.booking-header h1 {
+    font-size: 2.5rem;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.booking-header p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+.booking-content {
+    display: flex;
+    gap: 30px;
+}
+
+/* Filters Sidebar Styles */
+.filters-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.filter-section {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.filter-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #2d3748;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #edf2f7;
+    padding-bottom: 20px;
+}
+
+.filter-group:last-of-type {
+    border-bottom: none;
+}
+
+.filter-group h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #4a5568;
+}
+
+.filter-input input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+.filter-date {
+    display: flex;
+    gap: 10px;
+}
+
+.date-input {
+    flex: 1;
+}
+
+.date-input label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #718096;
+}
+
+.date-input input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+.price-slider {
+    padding: 10px 0;
+}
+
+.price-range {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.price-value {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 500;
+    color: #3a86ff;
+}
+
+.slider {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 5px;
+    border-radius: 5px;
+    background: #e2e8f0;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #3a86ff;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #3a86ff;
+    cursor: pointer;
+}
+
+.filter-checkbox,
+.filter-radio {
+    margin-bottom: 8px;
+}
+
+.filter-checkbox label,
+.filter-radio label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: #4a5568;
+    cursor: pointer;
+}
+
+.apply-filters,
+.reset-filters {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.reset-filters {
+    margin-top: 10px;
+}
+
+/* Search Results Styles */
+.search-results {
+    flex: 1;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.results-count h3 {
+    font-size: 1.2rem;
+    color: #2d3748;
+}
+
+.results-sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.results-sort label {
+    font-size: 0.95rem;
+    color: #718096;
+}
+
+.results-sort select {
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    font-family: inherit;
+    background-color: white;
+}
+
+/* Flight Card Styles */
+.flight-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+
+.flight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.flight-info {
+    flex: 1;
+}
+
+.airline-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Add this to your styles.css file */
+.airline-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background-color: white;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.airline-name h4 {
+    font-size: 1.1rem;
+    color: #2d3748;
+}
+
+.airline-name p {
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.flight-times {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.departure,
+.arrival {
+    text-align: center;
+    width: 120px;
+}
+
+.departure h4,
+.arrival h4 {
+    font-size: 1.2rem;
+    color: #2d3748;
+}
+
+.departure p,
+.arrival p {
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.flight-duration {
+    flex: 1;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.duration-line {
+    position: relative;
+    height: 2px;
+    background-color: #e2e8f0;
+    margin-bottom: 10px;
+}
+
+.duration-line .dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #3a86ff;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.duration-line .dot:first-child {
+    left: 0;
+}
+
+.duration-line .dot:last-child {
+    right: 0;
+}
+
+.duration-line .line {
+    position: absolute;
+    height: 100%;
+    left: 8px;
+    right: 8px;
+}
+
+.flight-duration p {
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.flight-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.amenities {
+    display: flex;
+    gap: 15px;
+}
+
+.amenities span,
+.baggage span {
+    font-size: 0.85rem;
+    color: #718096;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.flight-price {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #e2e8f0;
+    padding-left: 20px;
+}
+
+.price-tag {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.price-tag h3 {
+    font-size: 1.8rem;
+    color: #3a86ff;
+}
+
+.price-tag p {
+    font-size: 0.85rem;
+    color: #718096;
+}
+
+.flight-price .btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.pagination-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-btn:hover {
+    border-color: #3a86ff;
+    color: #3a86ff;
+}
+
+.pagination-btn.active {
+    background-color: #3a86ff;
+    color: white;
+    border-color: #3a86ff;
+}
+
+.pagination-btn.next {
+    width: auto;
+    padding: 0 15px;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #2d3748;
+    color: white;
+    padding: 60px 0 20px;
+    margin-top: 60px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-column h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: #3a86ff;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a:hover {
+    color: #3a86ff;
+}
+
+.contact-info li {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: #3a86ff;
+    transform: translateY(-3px);
+}
+
+.footer-newsletter {
+    display: flex;
+    margin-top: 15px;
+}
+
+.footer-newsletter input {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    font-family: inherit;
+}
+
+.footer-newsletter button {
+    background-color: #3a86ff;
+    color: white;
+    border: none;
+    padding: 0 15px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .booking-content {
+        flex-direction: column;
+    }
+    
+    .filters-sidebar {
+        width: 100%;
+    }
+    
+    .flight-card {
+        flex-direction: column;
+    }
+    
+    .flight-price {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #e2e8f0;
+        padding-left: 0;
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links, .auth-buttons {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .flight-times {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .departure, .arrival {
+        width: 100%;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+/* Filter active state */
+.filter-active {
+    border: 2px solid #3a86ff;
+    background-color: #f0f7ff;
+}
+
+/* Loading state */
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2rem;
+    color: #718096;
+}
+
+.loading i {
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* No results state */
+.no-results {
+    text-align: center;
+    padding: 40px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.no-results h3 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.no-results p {
+    color: #718096;
+    margin-bottom: 20px;
+}
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="https://via.placeholder.com/150x50" alt="TravelEase Logo">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html" class="active">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="sign_in.html" class="btn btn-outline">Sign In</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Booking Page Layout -->
+    <div class="booking-page">
+        <div class="container">
+            <div class="booking-header">
+                <h1>Find Your Perfect Flight</h1>
+                <p>Compare prices and book flights with confidence</p>
+            </div>
+            
+            <div class="booking-content">
+                <!-- Search Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <div class="filter-section">
+                        <h3>Filter Results</h3>
+                        <div class="filter-group">
+                            <h4>Departure City</h4>
+                            <div class="filter-input">
+                                <input type="text" placeholder="Enter city" id="departureCity">
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Arrival City</h4>
+                            <div class="filter-input">
+                                <input type="text" placeholder="Enter city" id="arrivalCity">
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Date Range</h4>
+                            <div class="filter-date">
+                                <div class="date-input">
+                                    <label for="departDate">Depart</label>
+                                    <input type="date" id="departDate">
+                                </div>
+                                <div class="date-input">
+                                    <label for="returnDate">Return</label>
+                                    <input type="date" id="returnDate">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Price Range</h4>
+                            <div class="price-slider">
+                                <div class="price-range">
+                                    <span id="priceMin">$0</span>
+                                    <span id="priceMax">$2000</span>
+                                </div>
+                                <input type="range" min="0" max="2000" value="1000" class="slider" id="priceSlider">
+                                <div class="price-value">Current: $<span id="currentPrice">1000</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Airlines</h4>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" id="allAirlines" checked> All Airlines
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" name="airline" value="American Airlines"> American Airlines
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" name="airline" value="Delta Airlines"> Delta Airlines
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" name="airline" value="United Airlines"> United Airlines
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" name="airline" value="British Airways"> British Airways
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" name="airline" value="Air France"> Air France
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Flight Type</h4>
+                            <div class="filter-radio">
+                                <label>
+                                    <input type="radio" name="flightType" value="all" checked> All Flights
+                                </label>
+                            </div>
+                            <div class="filter-radio">
+                                <label>
+                                    <input type="radio" name="flightType" value="direct"> Direct Flights Only
+                                </label>
+                            </div>
+                            <div class="filter-radio">
+                                <label>
+                                    <input type="radio" name="flightType" value="1stop"> 1 Stop Max
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary apply-filters" id="applyFilters">Apply Filters</button>
+                        <button class="btn btn-outline reset-filters" id="resetFilters">Reset Filters</button>
+                    </div>
+                </aside>
+                
+                <!-- Search Results Section -->
+                <div class="search-results">
+                    <div class="results-header">
+                        <div class="results-count">
+                            <h3><span id="flightCount">15</span> Flights Found</h3>
+                        </div>
+                        <div class="results-sort">
+                            <label for="sortBy">Sort by:</label>
+                            <select id="sortBy">
+                                <option value="price">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="duration">Duration: Shortest</option>
+                                <option value="departure">Departure: Earliest</option>
+                                <option value="arrival">Arrival: Earliest</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="results-list" id="flightResults">
+                        <!-- Flight 1 -->
+                        <div class="flight-card" data-id="1" data-airline="Delta Airlines" data-price="549" data-departure-time="08:30" data-arrival-time="16:00" data-duration="7" data-stops="Direct">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="delta.jpg" alt="Delta Airlines" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>Delta Airlines</h4>
+                                        <p>DL 1234</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>08:30</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>7h 30m • Direct</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>16:00</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> 1 Checked Bag Included</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$549</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="view_detailes.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 2 -->
+                        <div class="flight-card" data-id="2" data-airline="Air France" data-price="499" data-departure-time="10:15" data-arrival-time="18:00" data-duration="7" data-stops="Direct">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="air_france.jpg" alt="Air France" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>Air France</h4>
+                                        <p>AF 6789</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>10:15</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>7h 45m • Direct</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>18:00</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> 1 Checked Bag Included</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$499</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="air_franch.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 3 -->
+                        <div class="flight-card" data-id="3" data-airline="United Airlines" data-price="429" data-departure-time="14:45" data-arrival-time="08:00" data-duration="9" data-stops="1 Stop (LHR)">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="united.jpg" alt="United Airlines" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>United Airlines</h4>
+                                        <p>UA 5678</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>14:45</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>9h 15m • 1 Stop (LHR)</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>08:00</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> Checked Bag for Fee</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$429</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="united_airline.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 4 -->
+                        <div class="flight-card" data-id="4" data-airline="British Airways" data-price="389" data-departure-time="19:30" data-arrival-time="12:45" data-duration="11" data-stops="1 Stop (LHR)">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="british.jpg" alt="British Airways" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>British Airways</h4>
+                                        <p>BA 2345</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>19:30</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>11h 15m • 1 Stop (LHR)</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>12:45</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> Checked Bag for Fee</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$389</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="bretish_air.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 5 -->
+                        <div class="flight-card" data-id="5" data-airline="American Airlines" data-price="519" data-departure-time="21:15" data-arrival-time="14:30" data-duration="9" data-stops="Direct">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="america.jpg" alt="American Airlines" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>American Airlines</h4>
+                                        <p>AA 7890</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>21:15</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>9h 15m • Direct</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>14:30</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> 1 Checked Bag Included</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$519</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="america.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 6 -->
+                        <div class="flight-card" data-id="6" data-airline="Delta Airlines" data-price="579" data-departure-time="06:45" data-arrival-time="15:00" data-duration="8" data-stops="Direct">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="delta.jpg" alt="Delta Airlines" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>Delta Airlines</h4>
+                                        <p>DL 5432</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>06:45</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>8h 15m • Direct</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>15:00</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> 1 Checked Bag Included</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$579</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="view_detailes.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 7 -->
+                        <div class="flight-card" data-id="7" data-airline="Air France" data-price="539" data-departure-time="12:30" data-arrival-time="20:45" data-duration="8" data-stops="Direct">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="air_france.jpg" alt="Air France" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>Air France</h4>
+                                        <p>AF 1122</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>12:30</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>8h 15m • Direct</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>20:45</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> 1 Checked Bag Included</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$539</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="air_franch.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 8 -->
+                        <div class="flight-card" data-id="8" data-airline="United Airlines" data-price="449" data-departure-time="16:20" data-arrival-time="09:45" data-duration="9" data-stops="1 Stop (AMS)">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="united.jpg" alt="United Airlines" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>United Airlines</h4>
+                                        <p>UA 9876</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>16:20</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>9h 25m • 1 Stop (AMS)</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>09:45</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> Checked Bag for Fee</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$449</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="united_airline.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 9 -->
+                        <div class="flight-card" data-id="9" data-airline="British Airways" data-price="409" data-departure-time="22:10" data-arrival-time="15:30" data-duration="9" data-stops="1 Stop (LHR)">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="british.jpg" alt="British Airways" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>British Airways</h4>
+                                        <p>BA 6543</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>22:10</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>9h 20m • 1 Stop (LHR)</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>15:30</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> Checked Bag for Fee</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$409</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="bretish_air.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 10 -->
+                        <div class="flight-card" data-id="10" data-airline="American Airlines" data-price="529" data-departure-time="09:45" data-arrival-time="18:00" data-duration="8" data-stops="Direct">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="america.html" alt="American Airlines" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>American Airlines</h4>
+                                        <p>AA 3456</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>09:45</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>8h 15m • Direct</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>18:00</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> 1 Checked Bag Included</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$529</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="america.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 11 -->
+                        <div class="flight-card" data-id="11" data-airline="Delta Airlines" data-price="559" data-departure-time="11:30" data-arrival-time="19:45" data-duration="8" data-stops="Direct">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="delta.jpg" alt="Delta Airlines" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>Delta Airlines</h4>
+                                        <p>DL 8765</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>11:30</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>8h 15m • Direct</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>19:45</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> 1 Checked Bag Included</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$559</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="view_detailes.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 12 -->
+                        <div class="flight-card" data-id="12" data-airline="Air France" data-price="509" data-departure-time="15:15" data-arrival-time="23:30" data-duration="8" data-stops="Direct">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="air_france.jpg" alt="Air France" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>Air France</h4>
+                                        <p>AF 3344</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>15:15</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>8h 15m • Direct</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>23:30</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> 1 Checked Bag Included</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$509</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="air_franch.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 13 -->
+                        <div class="flight-card" data-id="13" data-airline="United Airlines" data-price="439" data-departure-time="18:30" data-arrival-time="12:00" data-duration="9" data-stops="1 Stop (FRA)">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="united.jpg" alt="United Airlines" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>United Airlines</h4>
+                                        <p>UA 2233</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>18:30</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>9h 30m • 1 Stop (FRA)</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>12:00</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> Checked Bag for Fee</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$439</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="united_airline.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 14 -->
+                        <div class="flight-card" data-id="14" data-airline="British Airways" data-price="419" data-departure-time="20:45" data-arrival-time="14:15" data-duration="9" data-stops="1 Stop (LHR)">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="british.jpg" alt="British Airways" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>British Airways</h4>
+                                        <p>BA 8877</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>20:45</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>9h 30m • 1 Stop (LHR)</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>14:15</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> Checked Bag for Fee</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$419</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="bretish_air.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Flight 15 -->
+                        <div class="flight-card" data-id="15" data-airline="American Airlines" data-price="539" data-departure-time="07:30" data-arrival-time="15:45" data-duration="8" data-stops="Direct">
+                            <div class="flight-info">
+                                <div class="airline-info">
+                                    <img src="america.jpg" alt="American Airlines" class="airline-logo">
+                                    <div class="airline-name">
+                                        <h4>American Airlines</h4>
+                                        <p>AA 5566</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-times">
+                                    <div class="departure">
+                                        <h4>07:30</h4>
+                                        <p>New York (JFK)</p>
+                                    </div>
+                                    
+                                    <div class="flight-duration">
+                                        <div class="duration-line">
+                                            <span class="dot"></span>
+                                            <span class="line"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <p>8h 15m • Direct</p>
+                                    </div>
+                                    
+                                    <div class="arrival">
+                                        <h4>15:45</h4>
+                                        <p>Paris (CDG)</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flight-details">
+                                    <div class="amenities">
+                                        <span><i class="fas fa-wifi"></i> WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Meal</span>
+                                        <span><i class="fas fa-tv"></i> Entertainment</span>
+                                    </div>
+                                    <div class="baggage">
+                                        <span><i class="fas fa-suitcase"></i> 1 Checked Bag Included</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flight-price">
+                                <div class="price-tag">
+                                    <h3>$539</h3>
+                                    <p>per person</p>
+                                </div>
+                                <a href="flight_book.html" class="btn btn-primary">Book Now</a>
+                                <a href="america.html"><button class="btn btn-outline-sm">View Details</button></a>
+                            </div>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <div class="pagination" id="pagination">
+                            <!-- Pagination buttons will be dynamically generated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Travel Street, City, Country</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@travelease.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form class="footer-newsletter">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 TravelEase. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // DOM elements
+    const flightCards = document.querySelectorAll('.flight-card');
+    const paginationContainer = document.getElementById('pagination');
+    const flightCountElement = document.getElementById('flightCount');
+    const priceSlider = document.getElementById('priceSlider');
+    const currentPriceElement = document.getElementById('currentPrice');
+    const applyFiltersButton = document.getElementById('applyFilters');
+    const resetFiltersButton = document.getElementById('resetFilters');
+    const sortBySelect = document.getElementById('sortBy');
+    const allAirlinesCheckbox = document.getElementById('allAirlines');
+    const flightResultsContainer = document.getElementById('flightResults');
+    
+    // Pagination settings
+    const itemsPerPage = 3;
+    let currentPage = 1;
+    let filteredFlights = Array.from(flightCards);
+
+    // Initialize the page
+    init();
+
+    function init() {
+        // Set up event listeners
+        priceSlider.addEventListener('input', updatePriceDisplay);
+        applyFiltersButton.addEventListener('click', applyFilters);
+        resetFiltersButton.addEventListener('click', resetFilters);
+        sortBySelect.addEventListener('change', sortFlights);
+        allAirlinesCheckbox.addEventListener('change', toggleAllAirlines);
+        
+        // Set today's date as the minimum for date inputs
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('departDate').min = today;
+        document.getElementById('returnDate').min = today;
+        
+        // Initial render
+        hideAllFlights();
+        renderFlights(filteredFlights, currentPage);
+        renderPagination(filteredFlights.length);
+        updateFlightCount(filteredFlights.length);
+    }
+
+    // Toggle all airlines checkbox
+    function toggleAllAirlines() {
+        const airlineCheckboxes = document.querySelectorAll('input[name="airline"]');
+        airlineCheckboxes.forEach(checkbox => {
+            checkbox.disabled = allAirlinesCheckbox.checked;
+            if (allAirlinesCheckbox.checked) {
+                checkbox.checked = false;
+            }
+        });
+    }
+
+    // Update price display as slider moves
+    function updatePriceDisplay() {
+        currentPriceElement.textContent = priceSlider.value;
+    }
+
+    // Hide all flight cards
+    function hideAllFlights() {
+        flightCards.forEach(card => {
+            card.style.display = 'none';
+        });
+    }
+
+    // Apply filters
+    function applyFilters() {
+        const departureCity = document.getElementById('departureCity').value.toLowerCase();
+        const arrivalCity = document.getElementById('arrivalCity').value.toLowerCase();
+        const departDate = document.getElementById('departDate').value;
+        const returnDate = document.getElementById('returnDate').value;
+        const maxPrice = parseInt(priceSlider.value);
+        const flightType = document.querySelector('input[name="flightType"]:checked').value;
+        
+        // Get selected airlines
+        let selectedAirlines = [];
+        if (allAirlinesCheckbox.checked) {
+            // All airlines selected
+            selectedAirlines = Array.from(flightCards).map(card => card.dataset.airline);
+        } else {
+            const airlineCheckboxes = document.querySelectorAll('input[name="airline"]:checked');
+            selectedAirlines = Array.from(airlineCheckboxes).map(checkbox => checkbox.value);
+        }
+        
+        // Filter flights
+        filteredFlights = Array.from(flightCards).filter(card => {
+            // Get data from card attributes
+            const airline = card.dataset.airline;
+            const price = parseInt(card.dataset.price);
+            const stops = card.dataset.stops;
+            const departureText = card.querySelector('.departure p').textContent.toLowerCase();
+            const arrivalText = card.querySelector('.arrival p').textContent.toLowerCase();
+            
+            // Filter by cities
+            if (departureCity && !departureText.includes(departureCity)) return false;
+            if (arrivalCity && !arrivalText.includes(arrivalCity)) return false;
+            
+            // Filter by price
+            if (price > maxPrice) return false;
+            
+            // Filter by airlines
+            if (selectedAirlines.length > 0 && !selectedAirlines.includes(airline)) return false;
+            
+            // Filter by flight type
+            if (flightType === 'direct' && !stops.includes('Direct')) return false;
+            if (flightType === '1stop' && !stops.includes('1 Stop')) return false;
+            
+            return true;
+        });
+        
+        // Reset to first page and update display
+        currentPage = 1;
+        sortFlights();
+        hideAllFlights();
+        renderFlights(filteredFlights, currentPage);
+        renderPagination(filteredFlights.length);
+        updateFlightCount(filteredFlights.length);
+        
+        // Add visual feedback
+        applyFiltersButton.classList.add('filter-active');
+        setTimeout(() => {
+            applyFiltersButton.classList.remove('filter-active');
+        }, 500);
+    }
+
+    // Reset all filters
+    function resetFilters() {
+        // Reset form elements
+        document.getElementById('departureCity').value = '';
+        document.getElementById('arrivalCity').value = '';
+        document.getElementById('departDate').value = '';
+        document.getElementById('returnDate').value = '';
+        priceSlider.value = 2000;
+        updatePriceDisplay();
+        
+        // Reset checkboxes and radio buttons
+        allAirlinesCheckbox.checked = true;
+        document.querySelectorAll('input[name="airline"]').forEach(checkbox => {
+            checkbox.checked = false;
+            checkbox.disabled = true;
+        });
+        
+        document.querySelector('input[name="flightType"][value="all"]').checked = true;
+        
+        // Reset filters and sort
+        filteredFlights = Array.from(flightCards);
+        sortBySelect.value = 'price';
+        
+        // Reset to first page and update display
+        currentPage = 1;
+        sortFlights();
+        hideAllFlights();
+        renderFlights(filteredFlights, currentPage);
+        renderPagination(filteredFlights.length);
+        updateFlightCount(filteredFlights.length);
+        
+        // Add visual feedback
+        resetFiltersButton.classList.add('filter-active');
+        setTimeout(() => {
+            resetFiltersButton.classList.remove('filter-active');
+        }, 500);
+    }
+
+    // Sort flights based on selected option
+    function sortFlights() {
+        const sortOption = sortBySelect.value;
+        
+        switch(sortOption) {
+            case 'price':
+                filteredFlights.sort((a, b) => parseInt(a.dataset.price) - parseInt(b.dataset.price));
+                break;
+            case 'price-desc':
+                filteredFlights.sort((a, b) => parseInt(b.dataset.price) - parseInt(a.dataset.price));
+                break;
+            case 'duration':
+                filteredFlights.sort((a, b) => parseInt(a.dataset.duration) - parseInt(b.dataset.duration));
+                break;
+            case 'departure':
+                filteredFlights.sort((a, b) => {
+                    const timeA = convertTimeToMinutes(a.dataset.departureTime);
+                    const timeB = convertTimeToMinutes(b.dataset.departureTime);
+                    return timeA - timeB;
+                });
+                break;
+            case 'arrival':
+                filteredFlights.sort((a, b) => {
+                    const timeA = convertTimeToMinutes(a.dataset.arrivalTime);
+                    const timeB = convertTimeToMinutes(b.dataset.arrivalTime);
+                    return timeA - timeB;
+                });
+                break;
+        }
+        
+        // Update display with sorted flights
+        hideAllFlights();
+        renderFlights(filteredFlights, currentPage);
+    }
+
+    // Helper function to convert time (HH:MM) to minutes for sorting
+    function convertTimeToMinutes(timeString) {
+        const [hours, minutes] = timeString.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
+
+    // Render flights for the current page
+    function renderFlights(flights, page) {
+        hideAllFlights();
+        
+        if (flights.length === 0) {
+            const noResultsDiv = document.createElement('div');
+            noResultsDiv.className = 'no-results';
+            noResultsDiv.innerHTML = `
+                <h3>No flights found</h3>
+                <p>Try adjusting your filters to see more results.</p>
+                <button class="btn btn-primary" onclick="document.getElementById('resetFilters').click()">
+                    Reset Filters
+                </button>
+            `;
+            flightResultsContainer.appendChild(noResultsDiv);
+            return;
+        }
+        
+        // Calculate start and end index for pagination
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, flights.length);
+        
+        // Show flights for current page
+        for (let i = startIndex; i < endIndex; i++) {
+            flights[i].style.display = 'flex';
+        }
+    }
+
+    // Render pagination buttons
+    function renderPagination(totalItems) {
+        paginationContainer.innerHTML = '';
+        
+        if (totalItems === 0) return;
+        
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        
+        // Create pagination buttons
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.className = `pagination-btn ${i === currentPage ? 'active' : ''}`;
+            pageButton.textContent = i;
+            
+            pageButton.addEventListener('click', () => {
+                currentPage = i;
+                hideAllFlights();
+                renderFlights(filteredFlights, currentPage);
+                renderPagination(totalItems);
+            });
+            
+            paginationContainer.appendChild(pageButton);
+        }
+        
+        // Add next button if there are multiple pages
+        if (totalPages > 1) {
+            const nextButton = document.createElement('button');
+            nextButton.className = 'pagination-btn next';
+            nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            
+            nextButton.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    hideAllFlights();
+                    renderFlights(filteredFlights, currentPage);
+                    renderPagination(totalItems);
+                }
+            });
+            
+            paginationContainer.appendChild(nextButton);
+        }
+    }
+
+    // Update flight count display
+    function updateFlightCount(count) {
+        flightCountElement.textContent = count;
+    }
+
+    // Placeholder function for flight details (would be implemented in a real app)
+    window.showFlightDetails = function(flightId) {
+        alert(`Flight details for flight ID: ${flightId} would be shown here.`);
+    };
+});
+    </script>
+</body>
+</html>

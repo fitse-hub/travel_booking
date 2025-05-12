@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>British Airways Flight Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ebf0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Flight Card Container */
+        .flight-details-card {
+            width: 100%;
+            max-width: 850px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin: 0 auto;
+            position: relative;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .flight-details-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        /* British Airways Header Stripe */
+        .card-header {
+            height: 6px;
+            background: linear-gradient(90deg, #075AAA 0%, #E41F26 100%);
+        }
+
+        /* Flight Header Section */
+        .flight-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .airline-banner {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .modal-airline-logo {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            border-radius: 20%;
+            box-shadow: 0 8px 25px rgba(7, 90, 170, 0.15);
+            border: 3px solid white;
+            background: white;
+            transition: all 0.5s ease;
+            animation: baLogoFloat 4s infinite ease-in-out;
+        }
+
+        @keyframes baLogoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .modal-airline-logo:hover {
+            animation: none;
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(7, 90, 170, 0.25);
+        }
+
+        .airline-banner h2 {
+            font-size: 28px;
+            color: #075AAA;
+            margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .airline-banner p {
+            color: #E41F26;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .flight-price-tag {
+            background: linear-gradient(135deg, #075AAA 0%, #0D6BC5 100%);
+            padding: 18px 28px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(7, 90, 170, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flight-price-tag::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
+
+        .flight-price-tag:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(7, 90, 170, 0.3);
+        }
+
+        .flight-price-tag h2 {
+            color: white;
+            font-size: 32px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .flight-price-tag p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        /* Flight Route Section */
+        .flight-route {
+            margin: 0;
+            background-color: white;
+            padding: 30px;
+            position: relative;
+        }
+
+        .route-details {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .route-point {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .time-location h3 {
+            font-size: 26px;
+            color: #075AAA;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .time-location p {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .time-location .date {
+            color: #666;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .terminal {
+            background-color: rgba(7, 90, 170, 0.1);
+            color: #075AAA;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 15px;
+            align-self: center;
+            font-weight: 600;
+            border: 1px solid rgba(7, 90, 170, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .terminal:hover {
+            background-color: rgba(7, 90, 170, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(7, 90, 170, 0.1);
+        }
+
+        /* Connecting Flight Route Line */
+        .route-line {
+            position: relative;
+            margin: 25px 0;
+            padding-left: 50px;
+        }
+
+        .animated-line {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: calc(100% - 50px);
+            height: 4px;
+            background: linear-gradient(90deg, #075AAA, #E41F26);
+            transform: translateY(-50%);
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 3px 10px rgba(7, 90, 170, 0.15);
+        }
+
+        .animated-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.7) 10px,
+                rgba(255, 255, 255, 0.7) 20px
+            );
+            animation: dashMove 1s linear infinite;
+        }
+
+        @keyframes dashMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-20px); }
+        }
+
+        .plane-icon {
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #E41F26;
+            font-size: 36px;
+            animation: baPlaneTravel 8s infinite linear;
+            z-index: 2;
+            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            filter: drop-shadow(0 2px 4px rgba(7, 90, 170, 0.3));
+        }
+
+        @keyframes baPlaneTravel {
+            0% { left: -30px; color: #E41F26; transform: translateY(-50%) rotate(0deg); }
+            25% { color: #075AAA; transform: translateY(-50%) rotate(5deg); }
+            50% { left: 50%; color: #E41F26; transform: translateY(-50%) rotate(0deg); }
+            75% { color: #075AAA; transform: translateY(-50%) rotate(-5deg); }
+            100% { left: calc(100% - 20px); color: #E41F26; transform: translateY(-50%) rotate(0deg); }
+        }
+
+        .stop-point {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 4px solid #075AAA;
+            box-shadow: 0 0 0 4px rgba(228, 31, 38, 0.5);
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #075AAA;
+            font-weight: bold;
+            font-size: 10px;
+            animation: baPulse 2s infinite;
+        }
+
+        @keyframes baPulse {
+            0% { box-shadow: 0 0 0 0 rgba(228, 31, 38, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(228, 31, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(228, 31, 38, 0); }
+        }
+
+        .route-line p {
+            color: #555;
+            font-size: 16px;
+            margin-top: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            border: 1px solid rgba(7, 90, 170, 0.1);
+            box-shadow: 0 4px 12px rgba(7, 90, 170, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .route-line p:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(7, 90, 170, 0.15);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        /* Flight Amenities Section */
+        .flight-amenities {
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-top: 1px solid rgba(7, 90, 170, 0.1);
+            border-bottom: 1px solid rgba(7, 90, 170, 0.1);
+        }
+
+        .flight-amenities h3 {
+            font-size: 22px;
+            color: #075AAA;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .flight-amenities h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #075AAA 0%, #E41F26 100%);
+            border-radius: 4px;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .amenity-item {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(7, 90, 170, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(7, 90, 170, 0.1);
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .amenity-item:nth-child(1) { animation-delay: 0.1s; }
+        .amenity-item:nth-child(2) { animation-delay: 0.2s; }
+        .amenity-item:nth-child(3) { animation-delay: 0.3s; }
+        .amenity-item:nth-child(4) { animation-delay: 0.4s; }
+        .amenity-item:nth-child(5) { animation-delay: 0.5s; }
+        .amenity-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .amenity-item:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(7, 90, 170, 0.2);
+            border-color: rgba(7, 90, 170, 0.2);
+        }
+
+        .amenity-item i {
+            font-size: 28px;
+            color: #075AAA;
+            margin-bottom: 15px;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .amenity-item:hover i {
+            color: #E41F26;
+            transform: scale(1.2);
+        }
+
+        .amenity-item p {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .amenity-detail {
+            font-size: 13px;
+            color: #666;
+            display: block;
+            line-height: 1.4;
+        }
+
+        /* Aircraft Information Section */
+        .flight-aircraft {
+            padding: 30px;
+            background: white;
+        }
+
+        .flight-aircraft h3 {
+            font-size: 22px;
+            color: #075AAA;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .flight-aircraft h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #075AAA 0%, #E41F26 100%);
+            border-radius: 4px;
+        }
+
+        .aircraft-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(7, 90, 170, 0.1);
+            border: 1px solid rgba(7, 90, 170, 0.1);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .aircraft-image {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+
+        .aircraft-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 180px;
+            object-fit: contain;
+            transition: all 0.5s ease;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+        }
+
+        .aircraft-image:hover img {
+            transform: scale(1.05) rotate(-2deg);
+            filter: drop-shadow(0 8px 20px rgba(7, 90, 170, 0.2));
+        }
+
+        .aircraft-info {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .aircraft-info p {
+            margin-bottom: 12px;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .aircraft-info p strong {
+            color: #075AAA;
+            font-weight: 600;
+        }
+
+        /* Back to Flights Button */
+        .back-to-flights {
+            text-align: center;
+            padding: 25px 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-top: 1px solid rgba(7, 90, 170, 0.1);
+            border-radius: 0 0 16px 16px;
+        }
+        
+        .btn-back {
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: none;
+            background: linear-gradient(135deg, #075AAA 0%, #0D6BC5 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(7, 90, 170, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-back:hover {
+            background: linear-gradient(135deg, #064A9A 0%, #0B5BB5 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(7, 90, 170, 0.4);
+        }
+
+        .btn-back:active {
+            transform: translateY(1px);
+        }
+
+        .btn-back i {
+            margin-right: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover i {
+            transform: translateX(-5px);
+        }
+
+        .btn-back::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(30deg);
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover::after {
+            left: 100%;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .flight-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 25px;
+            }
+
+            .flight-price-tag {
+                width: 100%;
+            }
+
+            .amenities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .aircraft-details {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flight-details-card {
+                border-radius: 15px;
+            }
+
+            .airline-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .route-point {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .terminal {
+                align-self: flex-start;
+            }
+
+            .route-line {
+                padding-left: 30px;
+            }
+
+            .amenities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-back {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Flight Details Card -->
+    <div class="flight-details-card">
+        <div class="card-header"></div>
+        
+        <div class="flight-header">
+            <div class="airline-banner">
+                <img id="modalAirlineLogo" src="https://logo.clearbit.com/britishairways.com" alt="British Airways Logo" class="modal-airline-logo">
+                <div>
+                    <h2 id="modalAirlineName">British Airways</h2>
+                    <p id="modalFlightNumber">BA 2345</p>
+                </div>
+            </div>
+            <div class="flight-price-tag">
+                <h2 id="modalPrice">$389</h2>
+                <p>per person</p>
+            </div>
+        </div>
+
+        <div class="flight-route">
+            <div class="route-details">
+                <div class="route-point departure-point">
+                    <div class="time-location">
+                        <h3 id="modalDepartureTime">19:35</h3>
+                        <p id="modalDepartureAirport">New York (JFK)</p>
+                        <p class="date">May 25, 2024</p>
+                    </div>
+                    <div class="terminal">
+                        <p>Terminal 7</p>
+                    </div>
+                </div>
+                
+                <div class="route-line">
+                    <div class="animated-line">
+                        <div class="plane-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <div class="stop-point">1</div>
+                    </div>
+                    <p id="modalDuration">11h 15m • 1 Stop (LHR)</p>
+                </div>
+                
+                <div class="route-point arrival-point">
+                    <div class="time-location">
+                        <h3 id="modalArrivalTime">02:45</h3>
+                        <p id="modalArrivalAirport">Paris (CDG)</p>
+                        <p class="date">May 26, 2024</p>
+                    </div>
+                    <div class="terminal">
+                        <p>Terminal 2B</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flight-amenities">
+            <h3>Flight Amenities</h3>
+            <div class="amenities-grid">
+                <div class="amenity-item">
+                    <i class="fas fa-wifi"></i>
+                    <p>WiFi</p>
+                    <span class="amenity-detail">Available for purchase</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-utensils"></i>
+                    <p>Meal</p>
+                    <span class="amenity-detail">Complimentary meal</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-tv"></i>
+                    <p>Entertainment</p>
+                    <span class="amenity-detail">Seatback screens</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-plug"></i>
+                    <p>Power</p>
+                    <span class="amenity-detail">USB & AC outlets</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-couch"></i>
+                    <p>Seat</p>
+                    <span class="amenity-detail">31" pitch, 17.5" width</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-suitcase"></i>
+                    <p>Baggage</p>
+                    <span class="amenity-detail">1 checked bag included</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flight-aircraft">
+            <h3>Aircraft Information</h3>
+            <div class="aircraft-details">
+                <div class="aircraft-image">
+                    <img src="https://www.britishairways.com/assets/images/information/about-ba/fleet-facts/a380-800/3-4-view.png" alt="British Airways A380">
+                </div>
+                <div class="aircraft-info">
+                    <p><strong>Aircraft Type:</strong> Airbus A380-800</p>
+                    <p><strong>Seat Configuration:</strong> 3-4-3 (Economy)</p>
+                    <p><strong>Average Age:</strong> 9.2 years</p>
+                    <p><strong>Range:</strong> 8,000 nautical miles</p>
+                    <p><strong>Cruise Speed:</strong> 560 mph (900 km/h)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-flights">
+            <a href="flights.html">
+                <button class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Flights
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Flight Data Object
+        const flightData = {
+            airline: {
+                name: "British Airways",
+                logo: "british.jpg",
+                flightNumber: "BA 2345",
+                price: "$389",
+                rating: 4.7,
+                alliance: "Oneworld"
+            },
+            departure: {
+                time: "19:35",
+                airport: "New York (JFK)",
+                terminal: "Terminal 7",
+                date: "May 25, 2024"
+            },
+            arrival: {
+                time: "02:45",
+                airport: "Paris (CDG)",
+                terminal: "Terminal 2B",
+                date: "May 26, 2024"
+            },
+            duration: "11h 15m • 1 Stop (LHR)",
+            amenities: [
+                { icon: "wifi", name: "WiFi", detail: "Available for purchase" },
+                { icon: "utensils", name: "Meal", detail: "Complimentary meal" },
+                { icon: "tv", name: "Entertainment", detail: "Seatback screens" },
+                { icon: "plug", name: "Power", detail: "USB & AC outlets" },
+                { icon: "couch", name: "Seat", detail: "31\" pitch, 17.5\" width" },
+                { icon: "suitcase", name: "Baggage", detail: "1 checked bag included" }
+            ],
+            aircraft: {
+                type: "Airbus A380-800",
+                seats: "3-4-3 (Economy)",
+                age: "9.2 years",
+                range: "8,000 nautical miles",
+                speed: "560 mph (900 km/h)",
+                image: "https://www.britishairways.com/assets/images/information/about-ba/fleet-facts/a380-800/3-4-view.png"
+            }
+        };
+
+        // Initialize with flight data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Airline Info
+            document.getElementById('modalAirlineName').textContent = flightData.airline.name;
+            document.getElementById('modalAirlineLogo').src = flightData.airline.logo;
+            document.getElementById('modalFlightNumber').textContent = flightData.airline.flightNumber;
+            document.getElementById('modalPrice').textContent = flightData.airline.price;
+            
+            // Departure Info
+            document.getElementById('modalDepartureTime').textContent = flightData.departure.time;
+            document.getElementById('modalDepartureAirport').textContent = flightData.departure.airport;
+            document.querySelector('.departure-point .terminal p').textContent = flightData.departure.terminal;
+            
+            // Arrival Info
+            document.getElementById('modalArrivalTime').textContent = flightData.arrival.time;
+            document.getElementById('modalArrivalAirport').textContent = flightData.arrival.airport;
+            document.querySelector('.arrival-point .terminal p').textContent = flightData.arrival.terminal;
+            
+            // Dates and Duration
+            document.querySelector('.departure-point .date').textContent = flightData.departure.date;
+            document.querySelector('.arrival-point .date').textContent = flightData.arrival.date;
+            document.getElementById('modalDuration').textContent = flightData.duration;
+            
+            // Aircraft Image
+            document.querySelector('.aircraft-image img').src = flightData.aircraft.image;
+        });
+
+        // Back Button Functionality
+        document.getElementById('backToFlightsBtn').addEventListener('click', function() {
+            // Animation effect
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            
+            // Simulate loading
+            setTimeout(() => {
+                // In a real application, you would redirect to the flights page:
+                // window.location.href = 'flights.html';
+                
+                // For demo purposes, we'll just show a message
+                alert('Returning to flights listing...');
+                this.innerHTML = '<i class="fas fa-arrow-left"></i> Back to Flights';
+            }, 1000);
+        });
+
+        // Add subtle hover effects to all interactive elements
+        document.querySelectorAll('.amenity-item, .terminal, .flight-price-tag').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 10px 20px rgba(7, 90, 170, 0.2)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Add click effect to buttons
+        document.querySelectorAll('.btn-back').forEach(button => {
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'translateY(2px)';
+            });
+            
+            button.addEventListener('mouseup', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+        });
+    </script>
+</body>
+</html>

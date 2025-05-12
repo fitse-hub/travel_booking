@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokyo, Japan - TravelEase</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tokyo-specific styles */
+
+/* Hero Section */
+.destination-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://via.placeholder.com/1920x1080') no-repeat center center;
+    background-size: cover;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+.destination-hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.destination-hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.destination-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+
+.destination-hero p {
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Tokyo Theme Colors */
+:root {
+    --primary-color: #e91e63; /* Cherry Blossom Pink */
+    --secondary-color: #3f51b5; /* Indigo Blue */
+    --accent-color: #ff9800; /* Orange */
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #d81b60;
+    border-color: #d81b60;
+}
+
+.btn-outline {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Section Headers */
+.section-header h2 {
+    color: var(--primary-color);
+    position: relative;
+    padding-bottom: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--secondary-color);
+}
+
+/* Package Cards */
+.package-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+    border: 1px solid #eee;
+}
+
+.package-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.package-badge {
+    background-color: var(--accent-color);
+    color: white;
+    font-weight: 600;
+}
+
+.package-info h3 {
+    color: var(--primary-color);
+}
+
+.package-features li i {
+    color: var(--secondary-color);
+}
+
+/* Activity Cards */
+.activity-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    background-color: white;
+    border: 1px solid #eee;
+}
+
+.activity-card:hover {
+    transform: translateY(-5px);
+}
+
+.activity-info h3 {
+    color: var(--primary-color);
+}
+
+.activity-meta i {
+    color: var(--secondary-color);
+}
+
+.activity-price h4 {
+    color: var(--accent-color);
+}
+
+/* About Section */
+.about-destination {
+    background-color: var(--light-bg);
+    padding: 80px 0;
+}
+
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.about-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.about-stats {
+    flex: 0 0 300px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.stat-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid var(--primary-color);
+}
+
+.stat-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+/* Map Section */
+.map-section {
+    padding: 80px 0;
+}
+
+.map-container {
+    height: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.google-map {
+    height: 100%;
+    width: 100%;
+}
+
+/* Tokyo-specific animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sakuraFall {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100px) rotate(360deg);
+    }
+}
+
+.package-card, .activity-card {
+    opacity: 0;
+}
+
+.fade-in {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Cherry blossom decoration */
+.section-header::before {
+    content: '🌸';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -30px;
+    font-size: 24px;
+    animation: sakuraFall 5s infinite;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .destination-hero h1 {
+        font-size: 2.8rem;
+    }
+    
+    .destination-hero p {
+        font-size: 1.2rem;
+    }
+    
+    .about-content {
+        flex-direction: column;
+    }
+    
+    .about-stats {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .destination-hero {
+        height: 450px;
+    }
+    
+    .destination-hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .destination-hero p {
+        font-size: 1rem;
+    }
+    
+    .map-container {
+        height: 350px;
+    }
+}
+
+@media (max-width: 576px) {
+    .destination-hero {
+        height: 350px;
+    }
+    
+    .destination-hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="https://via.placeholder.com/150x50" alt="TravelEase Logo">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html" class="active">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="sign_in.html" class="btn btn-outline">Sign In</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Destination Hero Banner -->
+    <section class="destination-hero">
+        <div class="destination-hero-content">
+            <h1>Tokyo, Japan</h1>
+            <p>Where tradition meets innovation in the world's most vibrant metropolis</p>
+        </div>
+    </section>
+
+    <!-- About the Destination -->
+    <section class="about-destination">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Tokyo</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Tokyo, Japan's busy capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers to historic temples. The opulent Meiji Shinto Shrine is known for its towering gate and surrounding woods. The Imperial Palace sits amid large public gardens.</p>
+                    <p>The city's many museums offer exhibits ranging from classical art (in the Tokyo National Museum) to a reconstructed kabuki theater (in the Edo-Tokyo Museum). Tokyo is famed for its vibrant food scene, and its Shibuya and Shinjuku districts are centers of fashion and nightlife.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <h4>Best Time to Visit</h4>
+                        <p>March-May, September-November</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Currency</h4>
+                        <p>Japanese Yen (¥)</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Language</h4>
+                        <p>Japanese</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Local Time</h4>
+                        <p>GMT+9</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Available Packages -->
+    <section class="packages">
+        <div class="container">
+            <div class="section-header">
+                <h2>Available Packages</h2>
+                <p>Exclusive deals for your Tokyo adventure</p>
+            </div>
+            
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-img">
+                        <img src="https://via.placeholder.com/400x250" alt="Tokyo Explorer Package">
+                        <div class="package-badge">Popular</div>
+                    </div>
+                    <div class="package-info">
+                        <h3>Tokyo Explorer</h3>
+                        <p>5 nights at central hotel + Flight + Tokyo Metro pass</p>
+                        <ul class="package-features">
+                            <li><i class="fas fa-bed"></i> 4-star central hotel</li>
+                            <li><i class="fas fa-plane"></i> Return flights included</li>
+                            <li><i class="fas fa-coffee"></i> Breakfast included</li>
+                            <li><i class="fas fa-subway"></i> 7-day Tokyo Metro pass</li>
+                        </ul>
+                        <div class="package-price">
+                            <span>From</span>
+                            <h4>$1,599</h4>
+                            <span>per person</span>
+                        </div>
+                        <a href="tokyo-booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-img">
+                        <img src="https://via.placeholder.com/400x250" alt="Tokyo Luxury Package">
+                        <div class="package-badge">Luxury</div>
+                    </div>
+                    <div class="package-info">
+                        <h3>Tokyo Deluxe</h3>
+                        <p>7 nights at 5-star hotel + Flight + Private tours</p>
+                        <ul class="package-features">
+                            <li><i class="fas fa-hotel"></i> 5-star luxury hotel</li>
+                            <li><i class="fas fa-plane"></i> Business class flights</li>
+                            <li><i class="fas fa-utensils"></i> Daily breakfast & dinner</li>
+                            <li><i class="fas fa-user-tie"></i> Private guide & tours</li>
+                        </ul>
+                        <div class="package-price">
+                            <span>From</span>
+                            <h4>$3,299</h4>
+                            <span>per person</span>
+                        </div>
+                        <a href="tokyo-booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-img">
+                        <img src="https://via.placeholder.com/400x250" alt="Tokyo Culture Package">
+                        <div class="package-badge">Culture</div>
+                    </div>
+                    <div class="package-info">
+                        <h3>Cultural Tokyo</h3>
+                        <p>6 nights + Flight + Cultural experiences</p>
+                        <ul class="package-features">
+                            <li><i class="fas fa-home"></i> Traditional ryokan stay</li>
+                            <li><i class="fas fa-plane"></i> Economy flights</li>
+                            <li><i class="fas fa-utensils"></i> Traditional meals included</li>
+                            <li><i class="fas fa-theater-masks"></i> Cultural workshops</li>
+                        </ul>
+                        <div class="package-price">
+                            <span>From</span>
+                            <h4>$1,899</h4>
+                            <span>per person</span>
+                        </div>
+                        <a href="tokyo-booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Things to Do -->
+    <section class="activities">
+        <div class="container">
+            <div class="section-header">
+                <h2>Things to Do in Tokyo</h2>
+                <p>Explore the best attractions and experiences</p>
+            </div>
+            
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/300x200" alt="Senso-ji Temple">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Senso-ji Temple</h3>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 2 hours</span>
+                            <span><i class="fas fa-star"></i> 4.7 (3,200+ reviews)</span>
+                        </div>
+                        <p>Visit Tokyo's oldest temple, dating back to 645 AD, with its iconic Thunder Gate and shopping street.</p>
+                        <div class="activity-price">
+                            <span>From</span>
+                            <h4>$35</h4>
+                        </div>
+                        <a href="#" class="btn btn-outline">Book Tour</a>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/300x200" alt="Shibuya Crossing">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Shibuya & Harajuku Tour</h3>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 4 hours</span>
+                            <span><i class="fas fa-star"></i> 4.8 (2,500+ reviews)</span>
+                        </div>
+                        <p>Experience the famous Shibuya Crossing and explore the trendy fashion district of Harajuku.</p>
+                        <div class="activity-price">
+                            <span>From</span>
+                            <h4>$45</h4>
+                        </div>
+                        <a href="#" class="btn btn-outline">Book Tour</a>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/300x200" alt="Tokyo Skytree">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Tokyo Skytree</h3>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 2 hours</span>
+                            <span><i class="fas fa-star"></i> 4.6 (4,100+ reviews)</span>
+                        </div>
+                        <p>Ascend the world's tallest tower for breathtaking 360° views of Tokyo from 450 meters up.</p>
+                        <div class="activity-price">
+                            <span>From</span>
+                            <h4>$25</h4>
+                        </div>
+                        <a href="#" class="btn btn-outline">Book Tour</a>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/300x200" alt="Tsukiji Fish Market">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Food Tour & Cooking Class</h3>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 5 hours</span>
+                            <span><i class="fas fa-star"></i> 4.9 (1,800+ reviews)</span>
+                        </div>
+                        <p>Explore the outer Tsukiji Fish Market, taste local delicacies, and learn to make sushi.</p>
+                        <div class="activity-price">
+                            <span>From</span>
+                            <h4>$85</h4>
+                        </div>
+                        <a href="#" class="btn btn-outline">Book Tour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section class="map-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Explore Tokyo</h2>
+                <p>Find key attractions and points of interest</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="map" class="google-map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Travel Street, City, Country</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@travelease.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form class="footer-newsletter">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 TravelEase. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Animate elements when they come into view
+    const animateOnScroll = function() {
+        const elements = document.querySelectorAll('.package-card, .activity-card, .section-header');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+            
+            if (elementPosition < screenPosition) {
+                element.classList.add('fade-in');
+            }
+        });
+    };
+    
+    // Run animation check on load and scroll
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll();
+    
+    // Add fade-in class for initial animations with staggered delay
+    document.querySelectorAll('.package-card, .activity-card').forEach((element, index) => {
+        setTimeout(() => {
+            element.classList.add('fade-in');
+        }, 200 * index);
+    });
+    
+    // Initialize Google Map for Tokyo
+    window.initMap = function() {
+        // Coordinates for Tokyo
+        const tokyoCoordinates = { lat: 35.6762, lng: 139.6503 };
+        
+        // Create map centered on Tokyo
+        const map = new google.maps.Map(document.getElementById('map'), {
+            center: tokyoCoordinates,
+            zoom: 12,
+            styles: [
+                {
+                    "featureType": "water",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#e9e9e9"
+                        },
+                        {
+                            "lightness": 17
+                        }
+                    ]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#f5f5f5"
+                        },
+                        {
+                            "lightness": 20
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#ffffff"
+                        },
+                        {
+                            "lightness": 17
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#f5f5f5"
+                        },
+                        {
+                            "lightness": 21
+                        }
+                    ]
+                }
+            ]
+        });
+        
+        // Add markers for key attractions
+        const attractions = [
+            {
+                position: { lat: 35.7148, lng: 139.7967 },
+                title: "Senso-ji Temple",
+                icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
+            },
+            {
+                position: { lat: 35.6594, lng: 139.7005 },
+                title: "Shibuya Crossing",
+                icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+            },
+            {
+                position: { lat: 35.7101, lng: 139.8107 },
+                title: "Tokyo Skytree",
+                icon: "https://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            },
+            {
+                position: { lat: 35.6905, lng: 139.7026 },
+                title: "Shinjuku Gyoen",
+                icon: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+            },
+            {
+                position: { lat: 35.6586, lng: 139.7454 },
+                title: "Tokyo Tower",
+                icon: "https://maps.google.com/mapfiles/ms/icons/purple-dot.png"
+            }
+        ];
+        
+        // Add markers to map
+        attractions.forEach(attraction => {
+            const marker = new google.maps.Marker({
+                position: attraction.position,
+                map: map,
+                title: attraction.title,
+                icon: attraction.icon,
+                animation: google.maps.Animation.DROP
+            });
+            
+            // Add info window for each marker
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<div class="map-info-window"><h3>${attraction.title}</h3><p>A must-visit attraction in Tokyo</p></div>`
+            });
+            
+            marker.addListener('click', function() {
+                infoWindow.open(map, marker);
+            });
+        });
+    };
+    
+    // Weather widget for Tokyo
+    const fetchWeather = async () => {
+        try {
+            // This is a placeholder. In a real application, you would use a weather API
+            const weatherData = {
+                current: {
+                    temp_c: 22,
+                    condition: {
+                        text: "Partly Cloudy",
+                        icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"
+                    }
+                },
+                forecast: {
+                    forecastday: [
+                        { day: { maxtemp_c: 24, mintemp_c: 18 } },
+                        { day: { maxtemp_c: 23, mintemp_c: 17 } },
+                        { day: { maxtemp_c: 25, mintemp_c: 19 } }
+                    ]
+                }
+            };
+            
+            // Display weather data if a weather widget exists
+            const weatherWidget = document.querySelector('.weather-widget');
+            if (weatherWidget) {
+                weatherWidget.innerHTML = `
+                    <div class="current-weather">
+                        <img src="${weatherData.current.condition.icon}" alt="${weatherData.current.condition.text}">
+                        <div class="temp">${weatherData.current.temp_c}°C</div>
+                        <div class="condition">${weatherData.current.condition.text}</div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-day">
+                            <div class="day">Today</div>
+                            <div class="forecast-temp">${weatherData.forecast.forecastday[0].day.maxtemp_c}°C / ${weatherData.forecast.forecastday[0].day.mintemp_c}°C</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div class="day">Tomorrow</div>
+                            <div class="forecast-temp">${weatherData.forecast.forecastday[1].day.maxtemp_c}°C / ${weatherData.forecast.forecastday[1].day.mintemp_c}°C</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div class="day">Day After</div>
+                            <div class="forecast-temp">${weatherData.forecast.forecastday[2].day.maxtemp_c}°C / ${weatherData.forecast.forecastday[2].day.mintemp_c}°C</div>
+                        </div>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('Error fetching weather data:', error);
+        }
+    };
+    
+    // Call weather function
+    fetchWeather();
+    
+    // Handle booking button clicks
+    const bookButtons = document.querySelectorAll('.btn-primary');
+    bookButtons.forEach(button => {
+        if (button.textContent.includes('Book Now')) {
+            button.addEventListener('click', function(e) {
+                // You can add analytics tracking here
+                console.log('Booking button clicked for Tokyo package');
+            });
+        }
+    });
+    
+    // Tokyo-specific feature - Cherry blossom animation
+    const createCherryBlossoms = () => {
+        const container = document.querySelector('.destination-hero');
+        if (!container) return;
+        
+        for (let i = 0; i < 20; i++) {
+            const blossom = document.createElement('span');
+            blossom.classList.add('cherry-blossom');
+            blossom.innerHTML = '🌸';
+            blossom.style.left = Math.random() * 100 + 'vw';
+            blossom.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            blossom.style.animationDelay = Math.random() * 5 + 's';
+            blossom.style.opacity = Math.random() * 0.5 + 0.3;
+            blossom.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            blossom.style.position = 'absolute';
+            blossom.style.top = '-20px';
+            blossom.style.animation = 'sakuraFall linear infinite';
+            
+            container.appendChild(blossom);
+        }
+    };
+    
+    // Call cherry blossom function
+    createCherryBlossoms();
+    
+    // Japanese phrase of the day
+    const japanesePhrase = {
+        phrase: "おはようございます",
+        romanji: "Ohayou gozaimasu",
+        meaning: "Good morning"
+    };
+    
+    // Display Japanese phrase if element exists
+    const phraseElement = document.querySelector('.japanese-phrase');
+    if (phraseElement) {
+        phraseElement.innerHTML = `
+            <h3>Japanese Phrase of the Day</h3>
+            <p class="japanese">${japanesePhrase.phrase}</p>
+            <p class="romanji">${japanesePhrase.romanji}</p>
+            <p class="meaning">${japanesePhrase.meaning}</p>
+        `;
+    }
+});
+    </script>
+
+    <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+</body>
+</html>

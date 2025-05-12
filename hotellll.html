@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels - TravelEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary-color: #f8fafc;
+  --text-color: #1e293b;
+  --light-text: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  background-color: #f8fafc;
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline-sm {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+/* Header Styles */
+.header {
+  background-color: white;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: var(--transition);
+}
+
+.header.scrolled {
+  box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.logo img {
+  height: 40px;
+  transition: var(--transition);
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.nav-links a.active {
+  color: var(--primary-color);
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+  animation: underline 0.3s ease forwards;
+}
+
+@keyframes underline {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Booking Page */
+.booking-page {
+  padding: 40px 0;
+}
+
+.booking-header {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.booking-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.booking-header p {
+  color: var(--light-text);
+  font-size: 1.1rem;
+}
+
+.booking-content {
+  display: flex;
+  gap: 30px;
+}
+
+/* Filters Sidebar */
+.filters-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: var(--shadow-sm);
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+  animation: slideInLeft 0.5s ease;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.filter-section {
+  margin-bottom: 25px;
+}
+
+.filter-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group h4 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.filter-input {
+  width: 100%;
+}
+
+.filter-input input,
+.filter-input select {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  transition: var(--transition);
+}
+
+.filter-input input:focus,
+.filter-input select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.filter-date {
+  display: flex;
+  gap: 10px;
+}
+
+.date-input {
+  flex: 1;
+}
+
+.date-input label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: var(--light-text);
+}
+
+.price-slider {
+  margin-top: 15px;
+}
+
+.price-range {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #d1d5db;
+  outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.filter-checkbox {
+  margin-bottom: 8px;
+}
+
+.filter-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.filter-checkbox label:hover {
+  color: var(--primary-color);
+}
+
+.filter-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary-color);
+}
+
+.apply-filters,
+.reset-filters {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.reset-filters {
+  margin-top: 15px;
+}
+
+/* Search Results */
+.search-results {
+  flex: 1;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  animation: fadeIn 0.6s ease;
+}
+
+.results-count h3 {
+  font-size: 1.2rem;
+}
+
+.results-sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.results-sort select {
+  padding: 8px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  transition: var(--transition);
+}
+
+.results-sort select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Hotel Card */
+.hotel-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  animation: fadeIn 0.6s ease;
+  animation-fill-mode: both;
+}
+
+.hotel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hotel-card:nth-child(1) { animation-delay: 0.1s; }
+.hotel-card:nth-child(2) { animation-delay: 0.2s; }
+.hotel-card:nth-child(3) { animation-delay: 0.3s; }
+.hotel-card:nth-child(4) { animation-delay: 0.4s; }
+.hotel-card:nth-child(5) { animation-delay: 0.5s; }
+.hotel-card:nth-child(6) { animation-delay: 0.6s; }
+.hotel-card:nth-child(7) { animation-delay: 0.7s; }
+.hotel-card:nth-child(8) { animation-delay: 0.8s; }
+
+.hotel-content {
+  display: flex;
+}
+
+.hotel-img {
+  width: 300px;
+  height: 250px;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.hotel-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.hotel-card:hover .hotel-img img {
+  transform: scale(1.05);
+}
+
+.hotel-rating {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.hotel-info {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+}
+
+.hotel-details {
+  flex: 1;
+}
+
+.hotel-details h3 {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+.hotel-stars {
+  color: #f59e0b;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.hotel-location {
+  color: var(--light-text);
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hotel-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.hotel-amenities span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  color: var(--light-text);
+}
+
+.hotel-amenities i {
+  color: var(--primary-color);
+}
+
+.hotel-description {
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.hotel-price {
+  width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.price-info {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+.discount-badge {
+  background-color: #dc2626;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: var(--light-text);
+  font-size: 0.9rem;
+}
+
+.current-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.price-note {
+  font-size: 0.8rem;
+  color: var(--light-text);
+}
+
+.hotel-price .btn {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.pagination-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  background-color: white;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.pagination-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.pagination-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Footer */
+.footer {
+  background-color: #1e293b;
+  color: white;
+  padding: 60px 0 0;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-column h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column li {
+  margin-bottom: 10px;
+}
+
+.footer-column a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer-column a:hover {
+  color: white;
+  padding-left: 5px;
+}
+
+.contact-info li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.contact-info i {
+  color: var(--primary-color);
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-links a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #334155;
+  color: white;
+  transition: var(--transition);
+}
+
+.social-links a:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+.footer-newsletter {
+  display: flex;
+  margin-top: 15px;
+}
+
+.footer-newsletter input {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px 0 0 6px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-newsletter button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0 6px 6px 0;
+  padding: 0 15px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.footer-newsletter button:hover {
+  background-color: var(--primary-hover);
+}
+
+.footer-bottom {
+  border-top: 1px solid #334155;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .hotel-content {
+    flex-direction: column;
+  }
+  
+  .hotel-img {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .hotel-info {
+    flex-direction: column;
+  }
+  
+  .hotel-price {
+    width: 100%;
+    align-items: flex-start;
+    margin-top: 15px;
+  }
+  
+  .price-info {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .booking-content {
+    flex-direction: column;
+  }
+  
+  .filters-sidebar {
+    width: 100%;
+    position: static;
+    margin-bottom: 30px;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .auth-buttons {
+    display: none;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .header-content {
+    padding: 15px 0;
+  }
+  
+  .results-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-header h1 {
+    font-size: 2rem;
+  }
+  
+  .filter-date {
+    flex-direction: column;
+  }
+  
+  .hotel-card {
+    border-radius: 0;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="https://via.placeholder.com/150x50" alt="TravelEase Logo">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html" class="active">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="sign_in.html" class="btn btn-outline">Sign In</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Booking Page Layout -->
+    <div class="booking-page">
+        <div class="container">
+            <div class="booking-header">
+                <h1>Find Your Perfect Hotel</h1>
+                <p>Compare prices and book accommodations with confidence</p>
+            </div>
+            
+            <div class="booking-content">
+                <!-- Search Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <div class="filter-section">
+                        <h3>Filter Results</h3>
+                        <div class="filter-group">
+                            <h4>Destination</h4>
+                            <div class="filter-input">
+                                <input type="text" placeholder="Enter city or hotel name" id="hotelDestination">
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Check-in / Check-out</h4>
+                            <div class="filter-date">
+                                <div class="date-input">
+                                    <label for="checkInDate">Check-in</label>
+                                    <input type="date" id="checkInDate">
+                                </div>
+                                <div class="date-input">
+                                    <label for="checkOutDate">Check-out</label>
+                                    <input type="date" id="checkOutDate">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Guests & Rooms</h4>
+                            <div class="filter-input">
+                                <select id="guestsCount">
+                                    <option value="1">1 Adult</option>
+                                    <option value="2" selected>2 Adults</option>
+                                    <option value="3">3 Adults</option>
+                                    <option value="4">4 Adults</option>
+                                </select>
+                            </div>
+                            <div class="filter-input mt-2">
+                                <select id="roomsCount">
+                                    <option value="1">1 Room</option>
+                                    <option value="2">2 Rooms</option>
+                                    <option value="3">3 Rooms</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Price Range</h4>
+                            <div class="price-slider">
+                                <div class="price-range">
+                                    <span id="hotelPriceMin">$0</span>
+                                    <span id="hotelPriceMax">$500</span>
+                                </div>
+                                <input type="range" min="0" max="500" value="300" class="slider" id="hotelPriceSlider">
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Star Rating</h4>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> 5 Stars
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" checked> 4 Stars
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" checked> 3 Stars
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> 2 Stars
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> 1 Star
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Amenities</h4>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" checked> Free WiFi
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" checked> Breakfast Included
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> Swimming Pool
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> Fitness Center
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> Spa
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> Restaurant
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> Free Parking
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h4>Property Type</h4>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox" checked> Hotel
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> Resort
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> Apartment
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> Villa
+                                </label>
+                            </div>
+                            <div class="filter-checkbox">
+                                <label>
+                                    <input type="checkbox"> Hostel
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary apply-filters">Apply Filters</button>
+                        <button class="btn btn-outline reset-filters">Reset Filters</button>
+                    </div>
+                </aside>
+                
+                <!-- Search Results Section -->
+                <div class="search-results">
+                    <div class="results-header">
+                        <div class="results-count">
+                            <h3>8 Hotels Found</h3>
+                        </div>
+                        <div class="results-sort">
+                            <label for="sortHotelsBy">Sort by:</label>
+                            <select id="sortHotelsBy">
+                                <option value="recommended">Recommended</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Guest Rating</option>
+                                <option value="stars">Star Rating</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="results-list">
+                        <!-- Hotel Result Item -->
+                        <div class="hotel-card">
+                            <div class="hotel-img">
+                                <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80" alt="Grand Hotel Paris">
+                                <span class="hotel-rating">
+                                    <i class="fas fa-star"></i> 4.7
+                                </span>
+                            </div>
+                            
+                            <div class="hotel-info">
+                                <div class="hotel-details">
+                                    <h3>Grand Hotel Paris</h3>
+                                    <div class="hotel-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <p class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i> Central Paris, 0.5 miles from Eiffel Tower
+                                    </p>
+                                    
+                                    <div class="hotel-amenities">
+                                        <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Restaurant</span>
+                                        <span><i class="fas fa-coffee"></i> Breakfast</span>
+                                        <span><i class="fas fa-swimming-pool"></i> Pool</span>
+                                    </div>
+                                    
+                                    <div class="hotel-description">
+                                        <p>Elegant hotel with stunning views of the Eiffel Tower. Features spacious rooms, a gourmet restaurant, and a rooftop terrace.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hotel-price">
+                                    <div class="price-info">
+                                        <div class="discount-badge">20% OFF</div>
+                                        <div class="original-price">$250</div>
+                                        <div class="current-price">$200</div>
+                                        <div class="price-note">per night</div>
+                                    </div>
+                                    <a href="book_hotel2.html" class="btn btn-primary">Book Now</a>
+                                    <button class="btn btn-outline-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hotel Result Item -->
+                        <div class="hotel-card">
+                            <div class="hotel-img">
+                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Luxury Suites Paris">
+                                <span class="hotel-rating">
+                                    <i class="fas fa-star"></i> 4.9
+                                </span>
+                            </div>
+                            
+                            <div class="hotel-info">
+                                <div class="hotel-details">
+                                    <h3>Luxury Suites Paris</h3>
+                                    <div class="hotel-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i> Champs-Élysées, Paris
+                                    </p>
+                                    
+                                    <div class="hotel-amenities">
+                                        <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Restaurant</span>
+                                        <span><i class="fas fa-coffee"></i> Breakfast</span>
+                                        <span><i class="fas fa-spa"></i> Spa</span>
+                                        <span><i class="fas fa-dumbbell"></i> Fitness Center</span>
+                                    </div>
+                                    
+                                    <div class="hotel-description">
+                                        <p>Luxurious all-suite hotel in the heart of Paris. Features spacious accommodations, a Michelin-starred restaurant, and a full-service spa.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hotel-price">
+                                    <div class="price-info">
+                                        <div class="current-price">$350</div>
+                                        <div class="price-note">per night</div>
+                                    </div>
+                                    <a href="book_hotel2.html" class="btn btn-primary">Book Now</a>
+                                    <button class="btn btn-outline-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hotel Result Item -->
+                        <div class="hotel-card">
+                            <div class="hotel-img">
+                                <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Urban Boutique Hotel">
+                                <span class="hotel-rating">
+                                    <i class="fas fa-star"></i> 4.5
+                                </span>
+                            </div>
+                            
+                            <div class="hotel-info">
+                                <div class="hotel-details">
+                                    <h3>Urban Boutique Hotel</h3>
+                                    <div class="hotel-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i> Montmartre, Paris
+                                    </p>
+                                    
+                                    <div class="hotel-amenities">
+                                        <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                                        <span><i class="fas fa-coffee"></i> Breakfast</span>
+                                        <span><i class="fas fa-glass-cheers"></i> Bar</span>
+                                        <span><i class="fas fa-concierge-bell"></i> Concierge</span>
+                                    </div>
+                                    
+                                    <div class="hotel-description">
+                                        <p>Charming boutique hotel in the artistic Montmartre district. Features uniquely designed rooms, a cozy breakfast area, and a rooftop terrace with city views.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hotel-price">
+                                    <div class="price-info">
+                                        <div class="discount-badge">15% OFF</div>
+                                        <div class="original-price">$180</div>
+                                        <div class="current-price">$153</div>
+                                        <div class="price-note">per night</div>
+                                    </div>
+                                    <a href="book_hotel2.html" class="btn btn-primary">Book Now</a>
+                                    <button class="btn btn-outline-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hotel Result Item -->
+                        <div class="hotel-card">
+                            <div class="hotel-img">
+                                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Seaside Resort">
+                                <span class="hotel-rating">
+                                    <i class="fas fa-star"></i> 4.3
+                                </span>
+                            </div>
+                            
+                            <div class="hotel-info">
+                                <div class="hotel-details">
+                                    <h3>Seaside Resort</h3>
+                                    <div class="hotel-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i> Left Bank, Paris
+                                    </p>
+                                    
+                                    <div class="hotel-amenities">
+                                        <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                                        <span><i class="fas fa-coffee"></i> Breakfast</span>
+                                        <span><i class="fas fa-glass-cheers"></i> Bar</span>
+                                        <span><i class="fas fa-parking"></i> Parking</span>
+                                    </div>
+                                    
+                                    <div class="hotel-description">
+                                        <p>Modern hotel with stunning views of the Seine River. Features comfortable rooms, a riverside restaurant, and easy access to major attractions.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hotel-price">
+                                    <div class="price-info">
+                                        <div class="current-price">$175</div>
+                                        <div class="price-note">per night</div>
+                                    </div>
+                                    <a href="book_hotel2.html" class="btn btn-primary">Book Now</a>
+                                    <button class="btn btn-outline-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <!-- Hotel Result Item -->
+                        <div class="hotel-card">
+                            <div class="hotel-img">
+                                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1349&q=80" alt="Eco-Friendly Resort">
+                                <span class="hotel-rating">
+                                    <i class="fas fa-star"></i> 5.0
+                                </span>
+                            </div>
+                            
+                            <div class="hotel-info">
+                                <div class="hotel-details">
+                                    <h3>Eco-Friendly Resort</h3>
+                                    <div class="hotel-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i> 72-100 Eco-Friendly Resort Dr , Merawi, USA
+                                    </p>
+                                    
+                                    <div class="hotel-amenities">
+                                        <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Restaurant</span>
+                                        <span><i class="fas fa-coffee"></i> Breakfast</span>
+                                        <span><i class="fas fa-spa"></i> Spa</span>
+                                        <span><i class="fas fa-dumbbell"></i> Fitness Center</span>
+                                    </div>
+                                    
+                                    <div class="hotel-description">
+                                        <p> Oceanfront villas, lava rock pools, Jack Nicklaus-designed golf course, and authentic Hawaiian cultural experiences.​
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hotel-price">
+                                    <div class="price-info">
+                                        <div class="current-price">$350</div>
+                                        <div class="price-note">per night</div>
+                                    </div>
+                                    <a href="book_hotel2.html" class="btn btn-primary">Book Now</a>
+                                    <button class="btn btn-outline-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                         <!-- Hotel Result Item -->
+                         <div class="hotel-card">
+                            <div class="hotel-img">
+                                <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Family Resort & Spa">
+                                <span class="hotel-rating">
+                                    <i class="fas fa-star"></i> 4.6
+                                </span>
+                            </div>
+                            
+                            <div class="hotel-info">
+                                <div class="hotel-details">
+                                    <h3>Family Resort & Spa</h3>
+                                    <div class="hotel-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i> 675 E Durant Ave, Aspen, CO
+                                    </p>
+                                    
+                                    <div class="hotel-amenities">
+                                        <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                                        <span><i class="fas fa-coffee"></i> Breakfast</span>
+                                        <span><i class="fas fa-glass-cheers"></i> Bar</span>
+                                        <span><i class="fas fa-concierge-bell"></i> Concierge</span>
+                                    </div>
+                                    
+                                    <div class="hotel-description">
+                                        <p>Ski-in/ski-out access, fine dining, and personalized outdoor adventures.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hotel-price">
+                                    <div class="price-info">
+                                        <div class="discount-badge">15% OFF</div>
+                                        <div class="original-price">$180</div>
+                                        <div class="current-price">$153</div>
+                                        <div class="price-note">per night</div>
+                                    </div>
+                                    <a href="book_hotel2.html" class="btn btn-primary">Book Now</a>
+                                    <button class="btn btn-outline-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Hotel Result Item -->
+                        <div class="hotel-card">
+                            <div class="hotel-img">
+                                <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Business & Conference Hotel">
+                                <span class="hotel-rating">
+                                    <i class="fas fa-star"></i> 4.4
+                                </span>
+                            </div>
+                            
+                            <div class="hotel-info">
+                                <div class="hotel-details">
+                                    <h3>Business & Conference Hotel</h3>
+                                    <div class="hotel-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i>Piazza della Trinità dei Monti 6, Rome
+                                    </p>
+                                    
+                                    <div class="hotel-amenities">
+                                        <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                                        <span><i class="fas fa-coffee"></i> Breakfast</span>
+                                        <span><i class="fas fa-glass-cheers"></i> Bar</span>
+                                        <span><i class="fas fa-parking"></i> Parking</span>
+                                    </div>
+                                    
+                                    <div class="hotel-description">
+                                        <p>Modern hotel with stunning views Overlooking the Spanish Steps, renowned for its elegance and service.​</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hotel-price">
+                                    <div class="price-info">
+                                        <div class="current-price">$175</div>
+                                        <div class="price-note">per night</div>
+                                    </div>
+                                    <a href="book_hotel2.html" class="btn btn-primary">Book Now</a>
+                                    <button class="btn btn-outline-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Hotel Result Item -->
+                         <div class="hotel-card">
+                            <div class="hotel-img">
+                                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mountain View Lodge">
+                                <span class="hotel-rating">
+                                    <i class="fas fa-star"></i> 4.9
+                                </span>
+                            </div>
+                            
+                            <div class="hotel-info">
+                                <div class="hotel-details">
+                                    <h3>Mountain View Lodge</h3>
+                                    <div class="hotel-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <p class="hotel-location">
+                                        <i class="fas fa-map-marker-alt"></i> 176 Cumberland St, The Rocks, Sydney
+                                    </p>
+                                    
+                                    <div class="hotel-amenities">
+                                        <span><i class="fas fa-wifi"></i> Free WiFi</span>
+                                        <span><i class="fas fa-utensils"></i> Restaurant</span>
+                                        <span><i class="fas fa-coffee"></i> Breakfast</span>
+                                        <span><i class="fas fa-swimming-pool"></i> Pool</span>
+                                    </div>
+                                    
+                                    <div class="hotel-description">
+                                        <p>Sky-high views, CHI spa, and award-winning restaurants.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hotel-price">
+                                    <div class="price-info">
+                                        <div class="discount-badge">20% OFF</div>
+                                        <div class="original-price">$250</div>
+                                        <div class="current-price">$200</div>
+                                        <div class="price-note">per night</div>
+                                    </div>
+                                    <a href="book_hotel2.html" class="btn btn-primary">Book Now</a>
+                                    <button class="btn btn-outline-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div>                        
+
+
+                        <!-- Pagination -->
+                        <div class="pagination">
+                            <button class="pagination-btn prev" disabled>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <div class="page-numbers">
+                                <button class="pagination-btn active">1</button>
+                                <button class="pagination-btn">2</button>
+                            </div>
+                            <button class="pagination-btn next">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Travel Street, City, Country</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@travelease.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form class="footer-newsletter">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 TravelEase. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+  // Mobile Menu Toggle
+  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  const authButtons = document.querySelector('.auth-buttons');
+  
+  mobileMenuToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('active');
+    authButtons.classList.toggle('active');
+    mobileMenuToggle.classList.toggle('active');
+  });
+
+  // Header Scroll Effect
+  const header = document.querySelector('.header');
+  
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Price Slider
+  const priceSlider = document.getElementById('hotelPriceSlider');
+  const priceMin = document.getElementById('hotelPriceMin');
+  const priceMax = document.getElementById('hotelPriceMax');
+  
+  priceSlider.addEventListener('input', function() {
+    priceMax.textContent = `$${this.value}`;
+  });
+
+  // Filter Checkbox Counter
+  const filterCheckboxes = document.querySelectorAll('.filter-checkbox input');
+  const applyFiltersBtn = document.querySelector('.apply-filters');
+  const resetFiltersBtn = document.querySelector('.reset-filters');
+  
+  let selectedFilters = {
+    stars: [],
+    amenities: [],
+    propertyTypes: []
+  };
+
+  filterCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const filterType = this.closest('.filter-group').querySelector('h4').textContent;
+      const filterValue = this.nextSibling.textContent.trim();
+      
+      if (filterType === 'Star Rating') {
+        if (this.checked) {
+          selectedFilters.stars.push(filterValue);
+        } else {
+          selectedFilters.stars = selectedFilters.stars.filter(star => star !== filterValue);
+        }
+      } else if (filterType === 'Amenities') {
+        if (this.checked) {
+          selectedFilters.amenities.push(filterValue);
+        } else {
+          selectedFilters.amenities = selectedFilters.amenities.filter(amenity => amenity !== filterValue);
+        }
+      } else if (filterType === 'Property Type') {
+        if (this.checked) {
+          selectedFilters.propertyTypes.push(filterValue);
+        } else {
+          selectedFilters.propertyTypes = selectedFilters.propertyTypes.filter(type => type !== filterValue);
+        }
+      }
+    });
+  });
+
+  // Apply Filters
+  applyFiltersBtn.addEventListener('click', function() {
+    const hotelCards = document.querySelectorAll('.hotel-card');
+    const destination = document.getElementById('hotelDestination').value.toLowerCase();
+    const priceRange = parseInt(priceSlider.value);
+    
+    hotelCards.forEach(card => {
+      const hotelName = card.querySelector('h3').textContent.toLowerCase();
+      const hotelLocation = card.querySelector('.hotel-location').textContent.toLowerCase();
+      const hotelPrice = parseInt(card.querySelector('.current-price').textContent.replace('$', ''));
+      const hotelStars = card.querySelector('.hotel-stars').childElementCount;
+      const starText = `${hotelStars} ${hotelStars === 1 ? 'Star' : 'Stars'}`;
+      
+      // Check destination filter
+      const destinationMatch = destination === '' || 
+                             hotelName.includes(destination) || 
+                             hotelLocation.includes(destination);
+      
+      // Check price filter
+      const priceMatch = hotelPrice <= priceRange;
+      
+      // Check star rating filter
+      const starMatch = selectedFilters.stars.length === 0 || 
+                       selectedFilters.stars.includes(starText);
+      
+      // Check amenities filter (simplified - would need data attributes in real implementation)
+      let amenitiesMatch = true;
+      if (selectedFilters.amenities.length > 0) {
+        const amenities = Array.from(card.querySelectorAll('.hotel-amenities span')).map(span => span.textContent.trim());
+        amenitiesMatch = selectedFilters.amenities.every(amenity => 
+          amenities.some(a => a.includes(amenity)));
+      }
+      
+      // Check property type filter (simplified)
+      let propertyTypeMatch = true;
+      if (selectedFilters.propertyTypes.length > 0) {
+        // In a real app, each card would have a data-property-type attribute
+        propertyTypeMatch = false; // Simplified for demo
+      }
+      
+      // Show/hide card based on filters
+      if (destinationMatch && priceMatch && starMatch && amenitiesMatch && propertyTypeMatch) {
+        card.style.display = 'block';
+        card.classList.add('filter-match');
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 100);
+      } else {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.display = 'none';
+        }, 300);
+      }
+    });
+    
+    // Update results count
+    const visibleCards = document.querySelectorAll('.hotel-card.filter-match');
+    document.querySelector('.results-count h3').textContent = `${visibleCards.length} Hotels Found`;
+    
+    // Show animation for matched cards
+    document.querySelectorAll('.hotel-card.filter-match').forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('animate__animated', 'animate__fadeInUp');
+      }, index * 100);
+    });
+  });
+
+  // Reset Filters
+  resetFiltersBtn.addEventListener('click', function() {
+    // Reset form elements
+    document.getElementById('hotelDestination').value = '';
+    document.getElementById('checkInDate').value = '';
+    document.getElementById('checkOutDate').value = '';
+    document.getElementById('guestsCount').value = '2';
+    document.getElementById('roomsCount').value = '1';
+    priceSlider.value = '300';
+    priceMax.textContent = '$300';
+    
+    // Reset checkboxes
+    filterCheckboxes.forEach(checkbox => {
+      checkbox.checked = false;
+    });
+    
+    // Reset selected filters
+    selectedFilters = {
+      stars: [],
+      amenities: [],
+      propertyTypes: []
+    };
+    
+    // Show all hotels
+    const hotelCards = document.querySelectorAll('.hotel-card');
+    hotelCards.forEach((card, index) => {
+      card.style.display = 'block';
+      card.classList.remove('filter-match');
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 100);
+    });
+    
+    // Update results count
+    document.querySelector('.results-count h3').textContent = `${hotelCards.length} Hotels Found`;
+  });
+
+  // Sort Hotels
+  const sortSelect = document.getElementById('sortHotelsBy');
+  sortSelect.addEventListener('change', function() {
+    const resultsList = document.querySelector('.results-list');
+    const hotelCards = Array.from(document.querySelectorAll('.hotel-card'));
+    
+    hotelCards.sort((a, b) => {
+      const priceA = parseInt(a.querySelector('.current-price').textContent.replace('$', ''));
+      const priceB = parseInt(b.querySelector('.current-price').textContent.replace('$', ''));
+      const ratingA = parseFloat(a.querySelector('.hotel-rating').textContent);
+      const ratingB = parseFloat(b.querySelector('.hotel-rating').textContent);
+      const starsA = a.querySelector('.hotel-stars').childElementCount;
+      const starsB = b.querySelector('.hotel-stars').childElementCount;
+      
+      switch(this.value) {
+        case 'price-low':
+          return priceA - priceB;
+        case 'price-high':
+          return priceB - priceA;
+        case 'rating':
+          return ratingB - ratingA;
+        case 'stars':
+          return starsB - starsA;
+        default:
+          return 0;
+      }
+    });
+    
+    // Reattach sorted cards
+    hotelCards.forEach(card => {
+      resultsList.insertBefore(card, resultsList.querySelector('.pagination'));
+    });
+    
+    // Add animation
+    hotelCards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 100);
+    });
+  });
+
+  // Pagination
+  const prevBtn = document.querySelector('.pagination-btn.prev');
+  const nextBtn = document.querySelector('.pagination-btn.next');
+  const pageBtns = document.querySelectorAll('.pagination-btn:not(.prev):not(.next)');
+  
+  let currentPage = 1;
+  const hotelsPerPage = 4;
+  const hotelCards = document.querySelectorAll('.hotel-card');
+  const totalPages = Math.ceil(hotelCards.length / hotelsPerPage);
+  
+  function updatePagination() {
+    // Update active page button
+    pageBtns.forEach((btn, index) => {
+      btn.classList.toggle('active', index + 1 === currentPage);
+    });
+    
+    // Update prev/next button states
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    
+    // Show/hide hotels based on current page
+    hotelCards.forEach((card, index) => {
+      if (index >= (currentPage - 1) * hotelsPerPage && index < currentPage * hotelsPerPage) {
+        card.style.display = 'block';
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, (index % hotelsPerPage) * 100);
+      } else {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.display = 'none';
+        }, 300);
+      }
+    });
+  }
+  
+  // Initialize pagination
+  updatePagination();
+  
+  // Pagination button events
+  prevBtn.addEventListener('click', function() {
+    if (currentPage > 1) {
+      currentPage--;
+      updatePagination();
+    }
+  });
+  
+  nextBtn.addEventListener('click', function() {
+    if (currentPage < totalPages) {
+      currentPage++;
+      updatePagination();
+    }
+  });
+  
+  pageBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      currentPage = parseInt(this.textContent);
+      updatePagination();
+    });
+  });
+
+  // Date Picker Defaults
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+  
+  document.getElementById('checkInDate').valueAsDate = today;
+  document.getElementById('checkOutDate').valueAsDate = tomorrow;
+  
+  // Set min dates to prevent past dates
+  document.getElementById('checkInDate').min = today.toISOString().split('T')[0];
+  document.getElementById('checkOutDate').min = tomorrow.toISOString().split('T')[0];
+  
+  // Update checkout min date when checkin changes
+  document.getElementById('checkInDate').addEventListener('change', function() {
+    const checkInDate = new Date(this.value);
+    const nextDay = new Date(checkInDate);
+    nextDay.setDate(checkInDate.getDate() + 1);
+    
+    document.getElementById('checkOutDate').min = nextDay.toISOString().split('T')[0];
+    
+    // If current checkout is before new min, update it
+    const currentCheckout = new Date(document.getElementById('checkOutDate').value);
+    if (currentCheckout < nextDay) {
+      document.getElementById('checkOutDate').valueAsDate = nextDay;
+    }
+  });
+
+  // View Details Button
+  document.querySelectorAll('.btn-outline-sm').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const hotelCard = this.closest('.hotel-card');
+      const hotelName = hotelCard.querySelector('h3').textContent;
+      
+      // In a real app, this would redirect to a details page or show a modal
+      alert(`Viewing details for ${hotelName}`);
+    });
+  });
+
+  // Book Now Button
+  document.querySelectorAll('.btn-primary:not(.apply-filters):not(.footer-newsletter button)').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      if (!btn.href) {
+        e.preventDefault();
+        const hotelCard = this.closest('.hotel-card');
+        const hotelName = hotelCard.querySelector('h3').textContent;
+        const hotelPrice = hotelCard.querySelector('.current-price').textContent;
+        
+        // In a real app, this would redirect to a booking page or show a booking form
+        alert(`Booking ${hotelName} for ${hotelPrice} per night`);
+      }
+    });
+  });
+
+  // Newsletter Form
+  const newsletterForm = document.querySelector('.footer-newsletter');
+  newsletterForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = this.querySelector('input').value;
+    
+    // Simple validation
+    if (email && email.includes('@')) {
+      alert(`Thank you for subscribing with ${email}`);
+      this.querySelector('input').value = '';
+    } else {
+      alert('Please enter a valid email address');
+    }
+  });
+});
+    </script>
+</body>
+</html>

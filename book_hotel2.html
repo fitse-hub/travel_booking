@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelEase - Hotel Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary-color: #f59e0b;
+    --text-color: #333;
+    --light-text: #666;
+    --lighter-text: #999;
+    --background-color: #f8fafc;
+    --white: #fff;
+    --border-color: #e2e8f0;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    font-weight: 500;
+    transition: var(--transition);
+    padding-bottom: 5px;
+    position: relative;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--primary-color);
+}
+
+nav ul li a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease;
+}
+
+.hero p {
+    font-size: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    animation: fadeInUp 1s ease;
+}
+
+/* Booking Process */
+.booking-process {
+    padding: 60px 0;
+}
+
+.booking-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.booking-steps::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--border-color);
+    z-index: -1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--white);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+    transition: var(--transition);
+}
+
+.step-text {
+    font-weight: 500;
+    color: var(--light-text);
+    transition: var(--transition);
+}
+
+.step.active .step-number {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+}
+
+.step.active .step-text {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.step.completed .step-number {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    color: var(--white);
+}
+
+.booking-step-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.booking-step-content.active {
+    display: block;
+}
+
+.booking-step-content h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Hotel Cards */
+.hotels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.hotel-card {
+    background-color: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    animation: fadeIn 0.5s ease;
+}
+
+.hotel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.hotel-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.hotel-card:hover .hotel-image img {
+    transform: scale(1.05);
+}
+
+.hotel-rating {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--secondary-color);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.hotel-info {
+    padding: 20px;
+}
+
+.hotel-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.hotel-location {
+    color: var(--light-text);
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.hotel-location i {
+    margin-right: 5px;
+    color: var(--primary-color);
+}
+
+.hotel-description {
+    color: var(--light-text);
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.hotel-price {
+    margin-bottom: 15px;
+    color: var(--light-text);
+}
+
+.price {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.select-hotel-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.select-hotel-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Room Details */
+.selected-hotel-summary {
+    display: flex;
+    background-color: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.selected-hotel-image {
+    width: 200px;
+    height: 150px;
+}
+
+.selected-hotel-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.selected-hotel-info {
+    padding: 20px;
+    flex: 1;
+}
+
+.selected-hotel-info h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.selected-hotel-rating {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.selected-hotel-price {
+    font-weight: 500;
+}
+
+.room-details-form {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.room-amenities {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.room-amenities h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.amenity {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.amenity i {
+    color: var(--primary-color);
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.booking-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.back-btn, .next-btn {
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.back-btn {
+    background-color: var(--white);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.back-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.next-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+}
+
+.next-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Payment Section */
+.booking-summary {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.booking-summary h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.summary-details {
+    font-size: 14px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.summary-row span:first-child {
+    color: var(--light-text);
+}
+
+.summary-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 15px 0;
+}
+
+.summary-row.total {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.payment-form {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.payment-form h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.payment-methods {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.payment-method {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.payment-method.active {
+    border-color: var(--primary-color);
+    background-color: rgba(37, 99, 235, 0.05);
+}
+
+.payment-method input {
+    width: auto;
+    margin-right: 10px;
+}
+
+.card-input-wrapper {
+    position: relative;
+}
+
+.card-icons {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 5px;
+}
+
+.card-icons i {
+    font-size: 20px;
+    color: var(--light-text);
+}
+
+/* Confirmation Section */
+.confirmation-content {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.confirmation-icon {
+    font-size: 80px;
+    color: var(--success-color);
+    margin-bottom: 20px;
+    animation: scaleIn 0.5s ease;
+}
+
+.confirmation-content h2 {
+    color: var(--success-color);
+    margin-bottom: 15px;
+}
+
+.confirmation-content > p {
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.confirmation-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.confirmation-number {
+    flex: 1;
+    min-width: 250px;
+}
+
+.confirmation-number h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+#booking-reference {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.confirmation-summary {
+    flex: 2;
+    min-width: 300px;
+}
+
+.confirmation-summary h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.confirmation-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.confirmation-row span:first-child {
+    color: var(--light-text);
+    min-width: 100px;
+}
+
+.confirmation-row.total {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.confirmation-message {
+    background-color: #f1f5f9;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.confirmation-message p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.confirmation-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.confirmation-actions button {
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+}
+
+.confirmation-actions button i {
+    margin-right: 8px;
+}
+
+.print-btn, .email-btn {
+    background-color: var(--white);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.print-btn:hover, .email-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.home-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+}
+
+.home-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Footer */
+footer {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    padding: 60px 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h3 {
+    color: var(--white);
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.footer-section p {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.social-icons a:hover {
+    background-color: var(--primary-color);
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.footer-section ul li a:hover {
+    color: var(--primary-color);
+}
+
+.footer-section i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.newsletter-form {
+    display: flex;
+    margin-top: 15px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.newsletter-form button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0 15px;
+    border-radius: 0 5px 5px 0;
+    transition: var(--transition);
+}
+
+.newsletter-form button:hover {
+    background-color: var(--primary-dark);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 36px;
+    }
+    
+    .hero p {
+        font-size: 18px;
+    }
+    
+    .selected-hotel-summary {
+        flex-direction: column;
+    }
+    
+    .selected-hotel-image {
+        width: 100%;
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+    
+    nav ul {
+        margin-top: 15px;
+    }
+    
+    nav ul li {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    
+    .booking-steps {
+        overflow-x: auto;
+        padding-bottom: 15px;
+    }
+    
+    .step {
+        min-width: 120px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .confirmation-details {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero h1 {
+        font-size: 28px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+    }
+    
+    .booking-step-content h2 {
+        font-size: 24px;
+    }
+    
+    .payment-methods {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .confirmation-content {
+        padding: 20px;
+    }
+    
+    .confirmation-actions {
+        flex-direction: column;
+    }
+    
+    .confirmation-actions button {
+        width: 100%;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Travel<span>Ease</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="book_hotel2.html" class="active">Hotels</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Find Your Perfect Stay</h1>
+                <p>Discover luxury and comfort at our partner hotels</p>
+            </div>
+        </section>
+
+        <section class="booking-process">
+            <div class="container">
+                <div class="booking-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Select Hotel</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Room Details</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Payment</div>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Confirmation</div>
+                    </div>
+                </div>
+
+                <div class="booking-content">
+                    <!-- Step 1: Hotel Selection -->
+                    <div class="booking-step-content active" id="step-1">
+                        <h2>Select Your Hotel</h2>
+                        <div class="hotels-grid">
+                            <div class="hotel-card" data-hotel-id="1">
+                                <div class="hotel-image">
+                                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Luxury Palace Hotel">
+                                    <div class="hotel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="hotel-info">
+                                    <h3>Luxury Palace Hotel</h3>
+                                    <p class="hotel-location"><i class="fas fa-map-marker-alt"></i> Downtown, City Center</p>
+                                    <p class="hotel-description">Experience ultimate luxury with panoramic city views and world-class amenities.</p>
+                                    <div class="hotel-price">
+                                        <span class="price">$299</span> / night
+                                    </div>
+                                    <button class="select-hotel-btn">Select Hotel</button>
+                                </div>
+                            </div>
+
+                            <div class="hotel-card" data-hotel-id="2">
+                                <div class="hotel-image">
+                                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Seaside Resort">
+                                    <div class="hotel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                                <div class="hotel-info">
+                                    <h3>Seaside Resort</h3>
+                                    <p class="hotel-location"><i class="fas fa-map-marker-alt"></i> Beachfront, Ocean Drive</p>
+                                    <p class="hotel-description">Wake up to stunning ocean views and enjoy direct beach access.</p>
+                                    <div class="hotel-price">
+                                        <span class="price">$349</span> / night
+                                    </div>
+                                    <button class="select-hotel-btn">Select Hotel</button>
+                                </div>
+                            </div>
+
+                            <div class="hotel-card" data-hotel-id="3">
+                                <div class="hotel-image">
+                                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mountain View Lodge">
+                                    <div class="hotel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="hotel-info">
+                                    <h3>Mountain View Lodge</h3>
+                                    <p class="hotel-location"><i class="fas fa-map-marker-alt"></i> Alpine Heights, Mountain Road</p>
+                                    <p class="hotel-description">Cozy mountain retreat with breathtaking views and hiking trails nearby.</p>
+                                    <div class="hotel-price">
+                                        <span class="price">$249</span> / night
+                                    </div>
+                                    <button class="select-hotel-btn">Select Hotel</button>
+                                </div>
+                            </div>
+
+                            <div class="hotel-card" data-hotel-id="4">
+                                <div class="hotel-image">
+                                    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Urban Boutique Hotel">
+                                    <div class="hotel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="hotel-info">
+                                    <h3>Urban Boutique Hotel</h3>
+                                    <p class="hotel-location"><i class="fas fa-map-marker-alt"></i> Arts District, Main Street</p>
+                                    <p class="hotel-description">Stylish boutique hotel in the heart of the arts and entertainment district.</p>
+                                    <div class="hotel-price">
+                                        <span class="price">$229</span> / night
+                                    </div>
+                                    <button class="select-hotel-btn">Select Hotel</button>
+                                </div>
+                            </div>
+
+                            <div class="hotel-card" data-hotel-id="5">
+                                <div class="hotel-image">
+                                    <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80" alt="Historic Grand Hotel">
+                                    <div class="hotel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="hotel-info">
+                                    <h3>Historic Grand Hotel</h3>
+                                    <p class="hotel-location"><i class="fas fa-map-marker-alt"></i> Old Town, Heritage Square</p>
+                                    <p class="hotel-description">Elegant historic hotel with classic architecture and modern amenities.</p>
+                                    <div class="hotel-price">
+                                        <span class="price">$279</span> / night
+                                    </div>
+                                    <button class="select-hotel-btn">Select Hotel</button>
+                                </div>
+                            </div>
+
+                            <div class="hotel-card" data-hotel-id="6">
+                                <div class="hotel-image">
+                                    <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1349&q=80" alt="Eco-Friendly Resort">
+                                    <div class="hotel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="hotel-info">
+                                    <h3>Eco-Friendly Resort</h3>
+                                    <p class="hotel-location"><i class="fas fa-map-marker-alt"></i> Green Valley, Nature Reserve</p>
+                                    <p class="hotel-description">Sustainable resort with organic cuisine and nature-inspired spa treatments.</p>
+                                    <div class="hotel-price">
+                                        <span class="price">$259</span> / night
+                                    </div>
+                                    <button class="select-hotel-btn">Select Hotel</button>
+                                </div>
+                            </div>
+
+                            <div class="hotel-card" data-hotel-id="7">
+                                <div class="hotel-image">
+                                    <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Family Resort & Spa">
+                                    <div class="hotel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                                <div class="hotel-info">
+                                    <h3>Family Resort & Spa</h3>
+                                    <p class="hotel-location"><i class="fas fa-map-marker-alt"></i> Lakeside, Family Drive</p>
+                                    <p class="hotel-description">Perfect for families with kids' activities, water park, and spacious suites.</p>
+                                    <div class="hotel-price">
+                                        <span class="price">$319</span> / night
+                                    </div>
+                                    <button class="select-hotel-btn">Select Hotel</button>
+                                </div>
+                            </div>
+
+                            <div class="hotel-card" data-hotel-id="8">
+                                <div class="hotel-image">
+                                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Business & Conference Hotel">
+                                    <div class="hotel-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="hotel-info">
+                                    <h3>Business & Conference Hotel</h3>
+                                    <p class="hotel-location"><i class="fas fa-map-marker-alt"></i> Financial District, Commerce Avenue</p>
+                                    <p class="hotel-description">Ideal for business travelers with meeting facilities and executive services.</p>
+                                    <div class="hotel-price">
+                                        <span class="price">$239</span> / night
+                                    </div>
+                                    <button class="select-hotel-btn">Select Hotel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Room Details -->
+                    <div class="booking-step-content" id="step-2">
+                        <h2>Room Details</h2>
+                        <div class="selected-hotel-summary">
+                            <div class="selected-hotel-image">
+                                <img id="selected-hotel-img" src="/placeholder.svg" alt="Selected Hotel">
+                            </div>
+                            <div class="selected-hotel-info">
+                                <h3 id="selected-hotel-name"></h3>
+                                <p id="selected-hotel-location"></p>
+                                <div class="selected-hotel-rating" id="selected-hotel-rating"></div>
+                                <p class="selected-hotel-price"><span id="selected-hotel-price"></span> / night</p>
+                            </div>
+                        </div>
+
+                        <div class="room-details-form">
+                            <div class="form-group">
+                                <label for="check-in">Check-in Date</label>
+                                <input type="date" id="check-in" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="check-out">Check-out Date</label>
+                                <input type="date" id="check-out" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guests">Number of Guests</label>
+                                <select id="guests" required>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2" selected>2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="room-type">Room Type</label>
+                                <select id="room-type" required>
+                                    <option value="standard">Standard Room</option>
+                                    <option value="deluxe">Deluxe Room</option>
+                                    <option value="suite">Executive Suite</option>
+                                    <option value="family">Family Room</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="special-requests">Special Requests</label>
+                                <textarea id="special-requests" rows="3" placeholder="Any special requests or requirements?"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="room-amenities">
+                            <h3>Room Amenities</h3>
+                            <div class="amenities-grid">
+                                <div class="amenity">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>Free WiFi</span>
+                                </div>
+                                <div class="amenity">
+                                    <i class="fas fa-coffee"></i>
+                                    <span>Breakfast</span>
+                                </div>
+                                <div class="amenity">
+                                    <i class="fas fa-swimming-pool"></i>
+                                    <span>Pool Access</span>
+                                </div>
+                                <div class="amenity">
+                                    <i class="fas fa-parking"></i>
+                                    <span>Free Parking</span>
+                                </div>
+                                <div class="amenity">
+                                    <i class="fas fa-concierge-bell"></i>
+                                    <span>Room Service</span>
+                                </div>
+                                <div class="amenity">
+                                    <i class="fas fa-spa"></i>
+                                    <span>Spa Access</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="booking-navigation">
+                            <button class="back-btn" data-step="1">Back</button>
+                            <button class="next-btn" data-step="3">Continue to Payment</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Payment -->
+                    <div class="booking-step-content" id="step-3">
+                        <h2>Payment Details</h2>
+                        <div class="booking-summary">
+                            <h3>Booking Summary</h3>
+                            <div class="summary-details">
+                                <div class="summary-row">
+                                    <span>Hotel:</span>
+                                    <span id="summary-hotel-name"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Room Type:</span>
+                                    <span id="summary-room-type"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Check-in:</span>
+                                    <span id="summary-check-in"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Check-out:</span>
+                                    <span id="summary-check-out"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Guests:</span>
+                                    <span id="summary-guests"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Duration:</span>
+                                    <span id="summary-duration"></span>
+                                </div>
+                                <div class="summary-divider"></div>
+                                <div class="summary-row">
+                                    <span>Room Rate:</span>
+                                    <span id="summary-room-rate"></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Taxes & Fees (15%):</span>
+                                    <span id="summary-taxes"></span>
+                                </div>
+                                <div class="summary-row total">
+                                    <span>Total:</span>
+                                    <span id="summary-total"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-form">
+                            <h3>Payment Method</h3>
+                            <div class="payment-methods">
+                                <div class="payment-method active">
+                                    <input type="radio" id="credit-card" name="payment-method" checked>
+                                    <label for="credit-card">Credit Card</label>
+                                </div>
+                                <div class="payment-method">
+                                    <input type="radio" id="paypal" name="payment-method">
+                                    <label for="paypal">PayPal</label>
+                                </div>
+                                <div class="payment-method">
+                                    <input type="radio" id="bank-transfer" name="payment-method">
+                                    <label for="bank-transfer">Bank Transfer</label>
+                                </div>
+                            </div>
+
+                            <div class="credit-card-form">
+                                <div class="form-group">
+                                    <label for="card-holder">Card Holder Name</label>
+                                    <input type="text" id="card-holder" placeholder="Name on card" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="card-number">Card Number</label>
+                                    <div class="card-input-wrapper">
+                                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                        <div class="card-icons">
+                                            <i class="fab fa-cc-visa"></i>
+                                            <i class="fab fa-cc-mastercard"></i>
+                                            <i class="fab fa-cc-amex"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiry-date">Expiry Date</label>
+                                        <input type="text" id="expiry-date" placeholder="MM/YY" maxlength="5" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" placeholder="123" maxlength="3" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="billing-address">Billing Address</label>
+                                <input type="text" id="billing-address" placeholder="Street address" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="billing-city">City</label>
+                                    <input type="text" id="billing-city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing-zip">Zip Code</label>
+                                    <input type="text" id="billing-zip" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="billing-country">Country</label>
+                                <select id="billing-country" required>
+                                    <option value="">Select Country</option>
+                                    <option value="AU">Ethiopia</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="FR">France</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="JP">Japan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="booking-navigation">
+                            <button class="back-btn" data-step="2">Back</button>
+                            <button class="next-btn" data-step="4">Complete Booking</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Confirmation -->
+                    <div class="booking-step-content" id="step-4">
+                        <div class="confirmation-content">
+                            <div class="confirmation-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h2>Booking Confirmed!</h2>
+                            <p>Thank you for your booking. Your reservation has been confirmed.</p>
+                            <div class="confirmation-details">
+                                <div class="confirmation-number">
+                                    <h3>Booking Reference</h3>
+                                    <p id="booking-reference">TRV-<span id="booking-number"></span></p>
+                                </div>
+                                <div class="confirmation-summary">
+                                    <h3>Booking Details</h3>
+                                    <div class="confirmation-row">
+                                        <span>Hotel:</span>
+                                        <span id="confirmation-hotel"></span>
+                                    </div>
+                                    <div class="confirmation-row">
+                                        <span>Room:</span>
+                                        <span id="confirmation-room"></span>
+                                    </div>
+                                    <div class="confirmation-row">
+                                        <span>Check-in:</span>
+                                        <span id="confirmation-check-in"></span>
+                                    </div>
+                                    <div class="confirmation-row">
+                                        <span>Check-out:</span>
+                                        <span id="confirmation-check-out"></span>
+                                    </div>
+                                    <div class="confirmation-row">
+                                        <span>Guests:</span>
+                                        <span id="confirmation-guests"></span>
+                                    </div>
+                                    <div class="confirmation-row total">
+                                        <span>Total Paid:</span>
+                                        <span id="confirmation-total"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="confirmation-message">
+                                <p>A confirmation email has been sent to your email address with all the details of your booking.</p>
+                                <p>If you have any questions or need to make changes to your reservation, please contact our customer service team.</p>
+                            </div>
+                            <div class="confirmation-actions">
+                                <button class="print-btn"><i class="fas fa-print"></i> Print Confirmation</button>
+                                <button class="email-btn"><i class="fas fa-envelope"></i> Email Details</button>
+                                <button class="home-btn"><i class="fas fa-home"></i> Return to Home</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TravelEase</h3>
+                    <p>Making your travel experience seamless and enjoyable.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Hotels</a></li>
+                        <li><a href="#">Flights</a></li>
+                        <li><a href="#">Packages</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Travel Street, City, Country</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-envelope"></i> info@travelease.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest travel deals.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TravelEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Variables to store booking data
+    let selectedHotel = null;
+    let bookingData = {
+        hotelId: null,
+        hotelName: '',
+        hotelLocation: '',
+        hotelImage: '',
+        hotelPrice: 0,
+        hotelRating: 0,
+        checkIn: '',
+        checkOut: '',
+        guests: 2,
+        roomType: 'standard',
+        specialRequests: '',
+        duration: 0,
+        totalPrice: 0
+    };
+
+    // Initialize date inputs with tomorrow and day after tomorrow
+    initializeDates();
+
+    // Hotel Selection
+    const hotelCards = document.querySelectorAll('.hotel-card');
+    hotelCards.forEach(card => {
+        const selectBtn = card.querySelector('.select-hotel-btn');
+        selectBtn.addEventListener('click', function() {
+            const hotelId = card.getAttribute('data-hotel-id');
+            const hotelName = card.querySelector('h3').textContent;
+            const hotelLocation = card.querySelector('.hotel-location').textContent;
+            const hotelImage = card.querySelector('img').src;
+            const hotelPrice = card.querySelector('.price').textContent.replace('$', '');
+            const hotelRating = card.querySelector('.hotel-rating').innerHTML;
+            
+            // Store selected hotel data
+            selectedHotel = {
+                id: hotelId,
+                name: hotelName,
+                location: hotelLocation,
+                image: hotelImage,
+                price: hotelPrice,
+                rating: hotelRating
+            };
+            
+            // Update booking data
+            bookingData.hotelId = hotelId;
+            bookingData.hotelName = hotelName;
+            bookingData.hotelLocation = hotelLocation;
+            bookingData.hotelImage = hotelImage;
+            bookingData.hotelPrice = parseFloat(hotelPrice);
+            bookingData.hotelRating = hotelRating;
+            
+            // Update hotel summary in step 2
+            document.getElementById('selected-hotel-img').src = hotelImage;
+            document.getElementById('selected-hotel-name').textContent = hotelName;
+            document.getElementById('selected-hotel-location').textContent = hotelLocation;
+            document.getElementById('selected-hotel-rating').innerHTML = hotelRating;
+            document.getElementById('selected-hotel-price').textContent = '$' + hotelPrice;
+            
+            // Move to next step
+            goToStep(2);
+        });
+    });
+
+    // Navigation between steps
+    const nextButtons = document.querySelectorAll('.next-btn');
+    const backButtons = document.querySelectorAll('.back-btn');
+    
+    nextButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const nextStep = parseInt(this.getAttribute('data-step'));
+            
+            // Validate current step before proceeding
+            if (validateStep(nextStep - 1)) {
+                if (nextStep === 3) {
+                    // Update booking summary before going to payment
+                    updateBookingSummary();
+                } else if (nextStep === 4) {
+                    // Process payment and show confirmation
+                    processPayment();
+                }
+                goToStep(nextStep);
+            }
+        });
+    });
+    
+    backButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const prevStep = parseInt(this.getAttribute('data-step'));
+            goToStep(prevStep);
+        });
+    });
+
+    // Room details form inputs
+    const checkInInput = document.getElementById('check-in');
+    const checkOutInput = document.getElementById('check-out');
+    const guestsInput = document.getElementById('guests');
+    const roomTypeInput = document.getElementById('room-type');
+    const specialRequestsInput = document.getElementById('special-requests');
+    
+    // Update booking data when inputs change
+    checkInInput.addEventListener('change', updateDates);
+    checkOutInput.addEventListener('change', updateDates);
+    
+    guestsInput.addEventListener('change', function() {
+        bookingData.guests = parseInt(this.value);
+    });
+    
+    roomTypeInput.addEventListener('change', function() {
+        bookingData.roomType = this.value;
+    });
+    
+    specialRequestsInput.addEventListener('input', function() {
+        bookingData.specialRequests = this.value;
+    });
+
+    // Payment method selection
+    const paymentMethods = document.querySelectorAll('.payment-method');
+    paymentMethods.forEach(method => {
+        method.addEventListener('click', function() {
+            paymentMethods.forEach(m => m.classList.remove('active'));
+            this.classList.add('active');
+            const radio = this.querySelector('input[type="radio"]');
+            radio.checked = true;
+        });
+    });
+
+    // Credit card formatting
+    const cardNumberInput = document.getElementById('card-number');
+    const expiryDateInput = document.getElementById('expiry-date');
+    const cvvInput = document.getElementById('cvv');
+    
+    cardNumberInput.addEventListener('input', function() {
+        this.value = formatCardNumber(this.value);
+    });
+    
+    expiryDateInput.addEventListener('input', function() {
+        this.value = formatExpiryDate(this.value);
+    });
+    
+    cvvInput.addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '').substring(0, 3);
+    });
+
+    // Confirmation page actions
+    const printBtn = document.querySelector('.print-btn');
+    const emailBtn = document.querySelector('.email-btn');
+    const homeBtn = document.querySelector('.home-btn');
+    
+    printBtn.addEventListener('click', function() {
+        window.print();
+    });
+    
+    emailBtn.addEventListener('click', function() {
+        alert('Confirmation email sent successfully!');
+    });
+    
+    homeBtn.addEventListener('click', function() {
+        window.location.href = '#';
+    });
+
+    // Helper Functions
+    function initializeDates() {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        const dayAfterTomorrow = new Date(today);
+        dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+        
+        const checkInInput = document.getElementById('check-in');
+        const checkOutInput = document.getElementById('check-out');
+        
+        checkInInput.valueAsDate = tomorrow;
+        checkOutInput.valueAsDate = dayAfterTomorrow;
+        
+        // Set min dates
+        checkInInput.min = formatDateForInput(today);
+        checkOutInput.min = formatDateForInput(tomorrow);
+        
+        // Update booking data
+        bookingData.checkIn = formatDateForDisplay(tomorrow);
+        bookingData.checkOut = formatDateForDisplay(dayAfterTomorrow);
+        bookingData.duration = 1; // 1 night
+    }
+
+    function updateDates() {
+        const checkInInput = document.getElementById('check-in');
+        const checkOutInput = document.getElementById('check-out');
+        
+        const checkInDate = new Date(checkInInput.value);
+        let checkOutDate = new Date(checkOutInput.value);
+        
+        // Ensure check-out is after check-in
+        if (checkOutDate <= checkInDate) {
+            checkOutDate = new Date(checkInDate);
+            checkOutDate.setDate(checkOutDate.getDate() + 1);
+            checkOutInput.valueAsDate = checkOutDate;
+        }
+        
+        // Update min date for check-out
+        checkOutInput.min = checkInInput.value;
+        
+        // Calculate duration
+        const diffTime = Math.abs(checkOutDate - checkInDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        // Update booking data
+        bookingData.checkIn = formatDateForDisplay(checkInDate);
+        bookingData.checkOut = formatDateForDisplay(checkOutDate);
+        bookingData.duration = diffDays;
+    }
+
+    function updateBookingSummary() {
+        // Update room type display name
+        let roomTypeDisplay = 'Standard Room';
+        switch(bookingData.roomType) {
+            case 'deluxe':
+                roomTypeDisplay = 'Deluxe Room';
+                break;
+            case 'suite':
+                roomTypeDisplay = 'Executive Suite';
+                break;
+            case 'family':
+                roomTypeDisplay = 'Family Room';
+                break;
+        }
+        
+        // Calculate total price
+        const roomRate = bookingData.hotelPrice * bookingData.duration;
+        const taxes = roomRate * 0.15; // 15% tax
+        const total = roomRate + taxes;
+        
+        // Update booking data
+        bookingData.totalPrice = total;
+        
+        // Update summary elements
+        document.getElementById('summary-hotel-name').textContent = bookingData.hotelName;
+        document.getElementById('summary-room-type').textContent = roomTypeDisplay;
+        document.getElementById('summary-check-in').textContent = bookingData.checkIn;
+        document.getElementById('summary-check-out').textContent = bookingData.checkOut;
+        document.getElementById('summary-guests').textContent = bookingData.guests + ' Guest' + (bookingData.guests > 1 ? 's' : '');
+        document.getElementById('summary-duration').textContent = bookingData.duration + ' Night' + (bookingData.duration > 1 ? 's' : '');
+        document.getElementById('summary-room-rate').textContent = '$' + roomRate.toFixed(2);
+        document.getElementById('summary-taxes').textContent = '$' + taxes.toFixed(2);
+        document.getElementById('summary-total').textContent = '$' + total.toFixed(2);
+    }
+
+    function processPayment() {
+        // Generate random booking reference number
+        const bookingNumber = generateBookingNumber();
+        document.getElementById('booking-number').textContent = bookingNumber;
+        
+        // Update room type display name
+        let roomTypeDisplay = 'Standard Room';
+        switch(bookingData.roomType) {
+            case 'deluxe':
+                roomTypeDisplay = 'Deluxe Room';
+                break;
+            case 'suite':
+                roomTypeDisplay = 'Executive Suite';
+                break;
+            case 'family':
+                roomTypeDisplay = 'Family Room';
+                break;
+        }
+        
+        // Update confirmation details
+        document.getElementById('confirmation-hotel').textContent = bookingData.hotelName;
+        document.getElementById('confirmation-room').textContent = roomTypeDisplay;
+        document.getElementById('confirmation-check-in').textContent = bookingData.checkIn;
+        document.getElementById('confirmation-check-out').textContent = bookingData.checkOut;
+        document.getElementById('confirmation-guests').textContent = bookingData.guests + ' Guest' + (bookingData.guests > 1 ? 's' : '');
+        document.getElementById('confirmation-total').textContent = '$' + bookingData.totalPrice.toFixed(2);
+        
+        // Add animation to confirmation icon
+        const confirmationIcon = document.querySelector('.confirmation-icon');
+        confirmationIcon.style.animation = 'scaleIn 0.5s ease';
+    }
+
+    function goToStep(step) {
+        // Update active step
+        document.querySelectorAll('.step').forEach(s => {
+            s.classList.remove('active');
+            s.classList.remove('completed');
+            
+            const stepNumber = parseInt(s.getAttribute('data-step'));
+            if (stepNumber < step) {
+                s.classList.add('completed');
+            } else if (stepNumber === step) {
+                s.classList.add('active');
+            }
+        });
+        
+        // Show active content
+        document.querySelectorAll('.booking-step-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.getElementById('step-' + step).classList.add('active');
+        
+        // Scroll to top of content
+        window.scrollTo({
+            top: document.querySelector('.booking-steps').offsetTop - 100,
+            behavior: 'smooth'
+        });
+    }
+
+    function validateStep(step) {
+        if (step === 1) {
+            // Validate hotel selection
+            if (!selectedHotel) {
+                alert('Please select a hotel to continue.');
+                return false;
+            }
+        } else if (step === 2) {
+            // Validate room details
+            const checkIn = document.getElementById('check-in').value;
+            const checkOut = document.getElementById('check-out').value;
+            
+            if (!checkIn || !checkOut) {
+                alert('Please select check-in and check-out dates.');
+                return false;
+            }
+        } else if (step === 3) {
+            // Validate payment details
+            const cardHolder = document.getElementById('card-holder').value;
+            const cardNumber = document.getElementById('card-number').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+            const billingAddress = document.getElementById('billing-address').value;
+            const billingCity = document.getElementById('billing-city').value;
+            const billingZip = document.getElementById('billing-zip').value;
+            const billingCountry = document.getElementById('billing-country').value;
+            
+            if (!cardHolder || !cardNumber || !expiryDate || !cvv || !billingAddress || !billingCity || !billingZip || !billingCountry) {
+                alert('Please fill in all payment details.');
+                return false;
+            }
+            
+            if (cardNumber.replace(/\s/g, '').length !== 16) {
+                alert('Please enter a valid card number.');
+                return false;
+            }
+            
+            if (expiryDate.length !== 5 || !expiryDate.includes('/')) {
+                alert('Please enter a valid expiry date (MM/YY).');
+                return false;
+            }
+            
+            if (cvv.length !== 3) {
+                alert('Please enter a valid CVV.');
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    function formatCardNumber(value) {
+        // Remove all non-digits
+        const v = value.replace(/\D/g, '');
+        // Limit to 16 digits
+        const cardNumber = v.substring(0, 16);
+        // Add space after every 4 digits
+        const formattedValue = cardNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
+        return formattedValue;
+    }
+
+    function formatExpiryDate(value) {
+        // Remove all non-digits
+        const v = value.replace(/\D/g, '');
+        // Format as MM/YY
+        if (v.length > 2) {
+            return v.substring(0, 2) + '/' + v.substring(2, 4);
+        } else {
+            return v;
+        }
+    }
+
+    function formatDateForInput(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    function formatDateForDisplay(date) {
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
+
+    function generateBookingNumber() {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+
+    // Add animations to hotel cards
+    animateHotelCards();
+    function animateHotelCards() {
+        const hotelCards = document.querySelectorAll('.hotel-card');
+        hotelCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    }
+});
+    </script>
+</body>
+</html>

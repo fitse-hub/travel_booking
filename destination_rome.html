@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rome, Italy - TravelEase</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Rome-specific styles */
+    
+    /* Hero Section */
+    .destination-hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://via.placeholder.com/1920x1080') no-repeat center center;
+        background-size: cover;
+        height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        position: relative;
+    }
+    
+    .destination-hero::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 150px;
+        background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    }
+    
+    .destination-hero-content {
+        max-width: 800px;
+        padding: 0 20px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .destination-hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        color: #fff;
+    }
+    
+    .destination-hero p {
+        font-size: 1.5rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Rome Theme Colors */
+    :root {
+        --primary-color: #8d1c1c; /* Roman Red */
+        --secondary-color: #f9a825; /* Gold */
+        --accent-color: #455a64; /* Stone Gray */
+        --text-color: #333;
+        --light-bg: #f8f9fa;
+    }
+    
+    /* Button Styles */
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    
+    .btn-primary:hover {
+        background-color: #6d1515;
+        border-color: #6d1515;
+    }
+    
+    .btn-outline {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    
+    .btn-outline:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    /* Section Headers */
+    .section-header h2 {
+        color: var(--primary-color);
+        position: relative;
+        padding-bottom: 15px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+    }
+    
+    .section-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--secondary-color);
+    }
+    
+    /* Package Cards */
+    .package-card {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: white;
+        border: 1px solid #eee;
+    }
+    
+    .package-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .package-badge {
+        background-color: var(--secondary-color);
+        color: #333;
+        font-weight: 600;
+    }
+    
+    .package-info h3 {
+        color: var(--primary-color);
+    }
+    
+    .package-features li i {
+        color: var(--primary-color);
+    }
+    
+    /* Activity Cards */
+    .activity-card {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        background-color: white;
+        border: 1px solid #eee;
+    }
+    
+    .activity-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .activity-info h3 {
+        color: var(--primary-color);
+    }
+    
+    .activity-meta i {
+        color: var(--secondary-color);
+    }
+    
+    .activity-price h4 {
+        color: var(--primary-color);
+    }
+    
+    /* About Section */
+    .about-destination {
+        background-color: var(--light-bg);
+        padding: 80px 0;
+    }
+    
+    .about-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-top: 40px;
+    }
+    
+    .about-text {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .about-text p {
+        margin-bottom: 20px;
+        line-height: 1.8;
+    }
+    
+    .about-stats {
+        flex: 0 0 300px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    
+    .stat-item {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .stat-item h4 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        font-size: 1rem;
+    }
+    
+    /* Map Section */
+    .map-section {
+        padding: 80px 0;
+    }
+    
+    .map-container {
+        height: 500px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .google-map {
+        height: 100%;
+        width: 100%;
+    }
+    
+    /* Rome-specific animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes columnGrow {
+        from {
+            transform: scaleY(0.8);
+            opacity: 0.8;
+        }
+        to {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+    }
+    
+    .package-card, .activity-card {
+        opacity: 0;
+    }
+    
+    .fade-in {
+        animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    /* Roman column decoration */
+    .section-header::before,
+    .section-header::after {
+        content: '|';
+        font-size: 24px;
+        color: var(--secondary-color);
+        position: absolute;
+        top: -10px;
+        font-weight: bold;
+    }
+    
+    .section-header::before {
+        left: calc(50% - 50px);
+    }
+    
+    .section-header::after {
+        right: calc(50% - 50px);
+    }
+    
+    /* Italian phrases section */
+    .italian-phrases {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 40px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .italian-phrases h3 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    .phrase-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .phrase-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px dashed #eee;
+    }
+    
+    .phrase {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+    
+    .meaning {
+        color: var(--accent-color);
+    }
+    
+    /* Roman date display */
+    .roman-date {
+        text-align: center;
+        margin-top: 20px;
+        font-family: 'Times New Roman', serif;
+        font-style: italic;
+        color: var(--accent-color);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 992px) {
+        .destination-hero h1 {
+            font-size: 2.8rem;
+        }
+        
+        .destination-hero p {
+            font-size: 1.2rem;
+        }
+        
+        .about-content {
+            flex-direction: column;
+        }
+        
+        .about-stats {
+            width: 100%;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .destination-hero {
+            height: 450px;
+        }
+        
+        .destination-hero h1 {
+            font-size: 2.2rem;
+        }
+        
+        .destination-hero p {
+            font-size: 1rem;
+        }
+        
+        .map-container {
+            height: 350px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .destination-hero {
+            height: 350px;
+        }
+        
+        .destination-hero h1 {
+            font-size: 1.8rem;
+        }
+        
+        .about-stats {
+            grid-template-columns: 1fr;
+        }
+        
+        .phrase-item {
+            flex-direction: column;
+        }
+        
+        .meaning {
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="https://via.placeholder.com/150x50" alt="TravelEase Logo">
+                    </a>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html" class="active">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="sign_in.html" class="btn btn-outline">Sign In</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Destination Hero Banner -->
+    <section class="destination-hero">
+        <div class="destination-hero-content">
+            <h1>Rome, Italy</h1>
+            <p>Eternal city of history, art, and la dolce vita</p>
+        </div>
+    </section>
+
+    <!-- About the Destination -->
+    <section class="about-destination">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Rome</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Rome, Italy's capital, is a sprawling, cosmopolitan city with nearly 3,000 years of globally influential art, architecture and culture on display. Ancient ruins such as the Forum and the Colosseum evoke the power of the former Roman Empire.</p>
+                    <p>Vatican City, headquarters of the Roman Catholic Church, has St. Peter's Basilica and the Vatican Museums, which house masterpieces such as Michelangelo's Sistine Chapel frescoes. The city is also famous for its many fountains, piazzas, and historic neighborhoods like Trastevere.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <h4>Best Time to Visit</h4>
+                        <p>April to June, September to October</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Currency</h4>
+                        <p>Euro (€)</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Language</h4>
+                        <p>Italian</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Local Time</h4>
+                        <p>GMT+1 (CET)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Available Packages -->
+    <section class="packages">
+        <div class="container">
+            <div class="section-header">
+                <h2>Available Packages</h2>
+                <p>Exclusive deals for your Roman holiday</p>
+            </div>
+            
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-img">
+                        <img src="https://via.placeholder.com/400x250" alt="Rome Classic Package">
+                        <div class="package-badge">Popular</div>
+                    </div>
+                    <div class="package-info">
+                        <h3>Rome Classic</h3>
+                        <p>4 nights at central hotel + Flight + Roma Pass</p>
+                        <ul class="package-features">
+                            <li><i class="fas fa-bed"></i> 4-star central hotel</li>
+                            <li><i class="fas fa-plane"></i> Return flights included</li>
+                            <li><i class="fas fa-coffee"></i> Breakfast included</li>
+                            <li><i class="fas fa-ticket-alt"></i> Roma Pass with skip-the-line</li>
+                        </ul>
+                        <div class="package-price">
+                            <span>From</span>
+                            <h4>€899</h4>
+                            <span>per person</span>
+                        </div>
+                        <a href="rome-booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-img">
+                        <img src="https://via.placeholder.com/400x250" alt="Roman Luxury Package">
+                        <div class="package-badge">Luxury</div>
+                    </div>
+                    <div class="package-info">
+                        <h3>Roman Luxury</h3>
+                        <p>6 nights at 5-star hotel + Flight + Private tours</p>
+                        <ul class="package-features">
+                            <li><i class="fas fa-hotel"></i> 5-star luxury hotel</li>
+                            <li><i class="fas fa-plane"></i> Business class flights</li>
+                            <li><i class="fas fa-utensils"></i> Daily breakfast & dinner</li>
+                            <li><i class="fas fa-user-tie"></i> Private guided tours</li>
+                        </ul>
+                        <div class="package-price">
+                            <span>From</span>
+                            <h4>€2,499</h4>
+                            <span>per person</span>
+                        </div>
+                        <a href="rome-booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-img">
+                        <img src="https://via.placeholder.com/400x250" alt="Roman Countryside Package">
+                        <div class="package-badge">Adventure</div>
+                    </div>
+                    <div class="package-info">
+                        <h3>Rome & Countryside</h3>
+                        <p>7 nights + Flight + Tuscany day trips</p>
+                        <ul class="package-features">
+                            <li><i class="fas fa-building"></i> City & countryside stays</li>
+                            <li><i class="fas fa-plane"></i> Economy flights</li>
+                            <li><i class="fas fa-car"></i> Car rental included</li>
+                            <li><i class="fas fa-wine-glass-alt"></i> Wine tasting tour</li>
+                        </ul>
+                        <div class="package-price">
+                            <span>From</span>
+                            <h4>€1,299</h4>
+                            <span>per person</span>
+                        </div>
+                        <a href="rome-booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Things to Do -->
+    <section class="activities">
+        <div class="container">
+            <div class="section-header">
+                <h2>Things to Do in Rome</h2>
+                <p>Explore the best attractions and experiences</p>
+            </div>
+            
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/300x200" alt="Colosseum">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Colosseum Skip-the-Line Tour</h3>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 3 hours</span>
+                            <span><i class="fas fa-star"></i> 4.8 (6,200+ reviews)</span>
+                        </div>
+                        <p>Explore the iconic symbol of Imperial Rome with an expert guide and priority access.</p>
+                        <div class="activity-price">
+                            <span>From</span>
+                            <h4>€56</h4>
+                        </div>
+                        <a href="#" class="btn btn-outline">Book Tour</a>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/300x200" alt="Vatican Museums">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Vatican Museums & Sistine Chapel</h3>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 3 hours</span>
+                            <span><i class="fas fa-star"></i> 4.7 (8,100+ reviews)</span>
+                        </div>
+                        <p>Discover masterpieces of art with skip-the-line access to the Vatican's treasures.</p>
+                        <div class="activity-price">
+                            <span>From</span>
+                            <h4>€62</h4>
+                        </div>
+                        <a href="#" class="btn btn-outline">Book Tour</a>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/300x200" alt="Food Tour">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Trastevere Food Tour</h3>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 4 hours</span>
+                            <span><i class="fas fa-star"></i> 4.9 (3,400+ reviews)</span>
+                        </div>
+                        <p>Sample authentic Roman cuisine in the charming neighborhood of Trastevere.</p>
+                        <div class="activity-price">
+                            <span>From</span>
+                            <h4>€89</h4>
+                        </div>
+                        <a href="#" class="btn btn-outline">Book Tour</a>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/300x200" alt="Vespa Tour">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Vespa Tour of Rome</h3>
+                        <div class="activity-meta">
+                            <span><i class="fas fa-clock"></i> 3 hours</span>
+                            <span><i class="fas fa-star"></i> 4.8 (2,100+ reviews)</span>
+                        </div>
+                        <p>Explore Rome like a local on the back of an iconic Italian Vespa scooter.</p>
+                        <div class="activity-price">
+                            <span>From</span>
+                            <h4>€110</h4>
+                        </div>
+                        <a href="#" class="btn btn-outline">Book Tour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section class="map-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Explore Rome</h2>
+                <p>Find key attractions and points of interest</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="map" class="google-map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Italian Phrases -->
+    <section class="language-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Speak Like a Local</h2>
+                <p>Essential Italian phrases for your trip</p>
+            </div>
+            
+            <div class="italian-phrases"></div>
+            <div class="roman-date"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="destinations.html">Destinations</a></li>
+                        <li><a href="flights.html">Flights</a></li>
+                        <li><a href="hotels.html">Hotels</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Travel Street, City, Country</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@travelease.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers.</p>
+                    <form class="footer-newsletter">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 TravelEase. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Animate elements when they come into view
+    const animateOnScroll = function() {
+        const elements = document.querySelectorAll('.package-card, .activity-card, .section-header');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.2;
+            
+            if (elementPosition < screenPosition) {
+                element.classList.add('fade-in');
+            }
+        });
+    };
+    
+    // Run animation check on load and scroll
+    window.addEventListener('scroll', animateOnScroll);
+    animateOnScroll();
+    
+    // Add fade-in class for initial animations with staggered delay
+    document.querySelectorAll('.package-card, .activity-card').forEach((element, index) => {
+        setTimeout(() => {
+            element.classList.add('fade-in');
+        }, 200 * index);
+    });
+    
+    // Initialize Google Map for Rome
+    window.initMap = function() {
+        // Coordinates for Rome
+        const romeCoordinates = { lat: 41.9028, lng: 12.4964 };
+        
+        // Create map centered on Rome
+        const map = new google.maps.Map(document.getElementById('map'), {
+            center: romeCoordinates,
+            zoom: 13,
+            styles: [
+                {
+                    "featureType": "water",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#e9e9e9"
+                        },
+                        {
+                            "lightness": 17
+                        }
+                    ]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#f5f5f5"
+                        },
+                        {
+                            "lightness": 20
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#ffffff"
+                        },
+                        {
+                            "lightness": 17
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#f5f5f5"
+                        },
+                        {
+                            "lightness": 21
+                        }
+                    ]
+                }
+            ]
+        });
+        
+        // Add markers for key attractions
+        const attractions = [
+            {
+                position: { lat: 41.8902, lng: 12.4922 },
+                title: "Colosseum",
+                icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
+            },
+            {
+                position: { lat: 41.9022, lng: 12.4539 },
+                title: "Vatican Museums",
+                icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+            },
+            {
+                position: { lat: 41.9009, lng: 12.4833 },
+                title: "Trevi Fountain",
+                icon: "https://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            },
+            {
+                position: { lat: 41.8986, lng: 12.4769 },
+                title: "Pantheon",
+                icon: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+            },
+            {
+                position: { lat: 41.8954, lng: 12.4823 },
+                title: "Roman Forum",
+                icon: "https://maps.google.com/mapfiles/ms/icons/purple-dot.png"
+            }
+        ];
+        
+        // Add markers to map
+        attractions.forEach(attraction => {
+            const marker = new google.maps.Marker({
+                position: attraction.position,
+                map: map,
+                title: attraction.title,
+                icon: attraction.icon,
+                animation: google.maps.Animation.DROP
+            });
+            
+            // Add info window for each marker
+            const infoWindow = new google.maps.InfoWindow({
+                content: `<div class="map-info-window"><h3>${attraction.title}</h3><p>A must-visit attraction in Rome</p></div>`
+            });
+            
+            marker.addListener('click', function() {
+                infoWindow.open(map, marker);
+            });
+        });
+    };
+    
+    // Weather widget for Rome
+    const fetchWeather = async () => {
+        try {
+            // This is a placeholder. In a real application, you would use a weather API
+            const weatherData = {
+                current: {
+                    temp_c: 24,
+                    condition: {
+                        text: "Sunny",
+                        icon: "//cdn.weatherapi.com/weather/64x64/day/113.png"
+                    }
+                },
+                forecast: {
+                    forecastday: [
+                        { day: { maxtemp_c: 26, mintemp_c: 18 } },
+                        { day: { maxtemp_c: 25, mintemp_c: 17 } },
+                        { day: { maxtemp_c: 27, mintemp_c: 19 } }
+                    ]
+                }
+            };
+            
+            // Display weather data if a weather widget exists
+            const weatherWidget = document.querySelector('.weather-widget');
+            if (weatherWidget) {
+                weatherWidget.innerHTML = `
+                    <div class="current-weather">
+                        <img src="${weatherData.current.condition.icon}" alt="${weatherData.current.condition.text}">
+                        <div class="temp">${weatherData.current.temp_c}°C</div>
+                        <div class="condition">${weatherData.current.condition.text}</div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-day">
+                            <div class="day">Today</div>
+                            <div class="forecast-temp">${weatherData.forecast.forecastday[0].day.maxtemp_c}°C / ${weatherData.forecast.forecastday[0].day.mintemp_c}°C</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div class="day">Tomorrow</div>
+                            <div class="forecast-temp">${weatherData.forecast.forecastday[1].day.maxtemp_c}°C / ${weatherData.forecast.forecastday[1].day.mintemp_c}°C</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div class="day">Day After</div>
+                            <div class="forecast-temp">${weatherData.forecast.forecastday[2].day.maxtemp_c}°C / ${weatherData.forecast.forecastday[2].day.mintemp_c}°C</div>
+                        </div>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('Error fetching weather data:', error);
+        }
+    };
+    
+    // Call weather function
+    fetchWeather();
+    
+    // Handle booking button clicks
+    const bookButtons = document.querySelectorAll('.btn-primary');
+    bookButtons.forEach(button => {
+        if (button.textContent.includes('Book Now')) {
+            button.addEventListener('click', function(e) {
+                // You can add analytics tracking here
+                console.log('Booking button clicked for Rome package');
+            });
+        }
+    });
+    
+    // Rome-specific feature - Italian phrases
+    const italianPhrases = [
+        { phrase: "Buongiorno", meaning: "Good morning/day" },
+        { phrase: "Grazie", meaning: "Thank you" },
+        { phrase: "Per favore", meaning: "Please" },
+        { phrase: "Scusi", meaning: "Excuse me" },
+        { phrase: "Dove si trova...?", meaning: "Where is...?" }
+    ];
+    
+    // Display Italian phrases if element exists
+    const phrasesElement = document.querySelector('.italian-phrases');
+    if (phrasesElement) {
+        let html = '<h3>Useful Italian Phrases</h3><ul class="phrase-list">';
+        
+        italianPhrases.forEach(item => {
+            html += `
+                <li class="phrase-item">
+                    <span class="phrase">${item.phrase}</span>
+                    <span class="meaning">${item.meaning}</span>
+                </li>
+            `;
+        });
+        
+        html += '</ul>';
+        phrasesElement.innerHTML = html;
+    }
+    
+    // Add Roman numeral date display
+    const toRomanNumeral = (num) => {
+        const romanNumerals = {
+            M: 1000, CM: 900, D: 500, CD: 400,
+            C: 100, XC: 90, L: 50, XL: 40,
+            X: 10, IX: 9, V: 5, IV: 4, I: 1
+        };
+        let roman = '';
+        
+        for (let key in romanNumerals) {
+            while (num >= romanNumerals[key]) {
+                roman += key;
+                num -= romanNumerals[key];
+            }
+        }
+        
+        return roman;
+    };
+    
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    
+    const romanDate = `${toRomanNumeral(day)}.${toRomanNumeral(month)}.${toRomanNumeral(year)}`;
+    
+    // Display Roman numeral date if element exists
+    const romanDateElement = document.querySelector('.roman-date');
+    if (romanDateElement) {
+        romanDateElement.textContent = `Today in Roman numerals: ${romanDate}`;
+    }
+});
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+</body>
+</html>
